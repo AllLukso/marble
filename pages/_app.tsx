@@ -7,6 +7,13 @@ import { Chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
+import Web3 from "web3";
+
+declare global {
+  interface Window {
+    web3: any;
+  }
+}
 
 const LuksoL16Chain: Chain = {
   id: 2828,
@@ -55,6 +62,11 @@ const wagmiClient = createClient({
   connectors,
   provider,
 });
+
+if (typeof window !== "undefined") {
+  // Client-side-only code
+  window.web3 = new Web3(Web3.givenProvider);
+}
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
