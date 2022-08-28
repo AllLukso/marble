@@ -20,9 +20,8 @@ export default function useIssuedTokens(address: string) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setIsLoading(true);
     async function fetchIssuedTokens() {
-      setIsLoading(true);
-
       const config = {
         ipfsGateway: IPFS_GATEWAY_BASE_URL,
       };
@@ -46,12 +45,7 @@ export default function useIssuedTokens(address: string) {
         for (let i = 0; i < fetchedAddresses.length; i++) {
           const tokenAddress = fetchedAddresses[i];
 
-          let LSP4TokenName,
-            LSP4TokenSymbol,
-            iconUrl,
-            LSP4Metadata,
-            totalSupply,
-            creationType;
+          let name, symbol, iconUrl, metadata, totalSupply, creationType;
 
           const supportsInterfaceContract = new window.web3.eth.Contract(
             [COMMON_ABIS.supportsInterface],
@@ -90,11 +84,11 @@ export default function useIssuedTokens(address: string) {
             "LSP4Metadata",
           ]);
 
-          LSP4TokenName = LSP4DigitalAsset[0].value;
-          LSP4TokenSymbol = LSP4DigitalAsset[1].value;
-          LSP4Metadata = LSP4DigitalAsset[2].value;
+          name = LSP4DigitalAsset[0].value;
+          symbol = LSP4DigitalAsset[1].value;
+          metadata = LSP4DigitalAsset[2].value;
 
-          const icons = LSP4Metadata.LSP4Metadata.icon;
+          const icons = metadata.LSP4Metadata.icon;
 
           if (icons && icons.length > 0) {
             iconUrl = icons[0].url.replace("ipfs://", IPFS_GATEWAY_BASE_URL);
@@ -114,22 +108,23 @@ export default function useIssuedTokens(address: string) {
             : await lsp4DigitalAssetContract.methods.totalSupply().call();
 
           fetchedAssets.push({
-            LSP4TokenName,
-            LSP4TokenSymbol,
+            name,
+            symbol,
             iconUrl,
-            LSP4Metadata,
+            metadata,
             totalSupply,
             creationType,
           });
         }
         setTokens(fetchedAssets);
+        setIsLoading(false);
       } catch (err) {
         console.log("Error fetching tokens: ", err);
+        setIsLoading(false);
       }
     }
     fetchIssuedTokens();
-    setIsLoading(false);
-  }, []);
+  }, [address]);
 
   return { tokens, isLoading };
 }

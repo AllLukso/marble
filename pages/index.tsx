@@ -4,12 +4,14 @@ import Head from "next/head";
 import { useAccount } from "wagmi";
 import useIssuedTokens from "../hooks/useIssuedTokens";
 import styles from "../styles/Home.module.css";
+import { Image } from "@chakra-ui/react";
 
 const Home: NextPage = () => {
   const { address } = useAccount();
-  const { tokens, isLoading } = useIssuedTokens(address);
+  const { tokens: issuedTokens, isLoading } = useIssuedTokens(address);
 
-  console.log("tokens: ", tokens);
+  console.log("tokens: ", issuedTokens);
+  console.log("isLoading: ", isLoading);
 
   return (
     <div className={styles.container}>
@@ -24,6 +26,28 @@ const Home: NextPage = () => {
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
         <ConnectButton />
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : (
+          issuedTokens.map(
+            ({
+              name,
+              symbol,
+              iconUrl,
+              metadata,
+              totalSupply,
+              creationType,
+            }) => {
+              return (
+                <>
+                  <div>{name}</div>
+                  <div>{symbol}</div>
+                  <Image src={iconUrl} alt="image" />
+                </>
+              );
+            }
+          )
+        )}
       </main>
     </div>
   );

@@ -9,6 +9,9 @@ import { publicProvider } from "wagmi/providers/public";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import Web3 from "web3";
 
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+
 declare global {
   interface Window {
     web3: any;
@@ -68,13 +71,32 @@ if (typeof window !== "undefined") {
   window.web3 = new Web3(Web3.givenProvider);
 }
 
+const theme = extendTheme({
+  styles: {
+    global: (props: any) => ({
+      body: {
+        fontFamily: "Inter",
+        lineHeight: "base",
+      },
+    }),
+  },
+});
+
 function MyApp({ Component, pageProps }: AppProps) {
+  const [mounted, setMounted] = useState(false);
+
+  // prevent hydration UI bug: https://blog.saeloun.com/2021/12/16/hydration.html
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
   return (
-    <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains}>
-        <Component {...pageProps} />
-      </RainbowKitProvider>
-    </WagmiConfig>
+    <ChakraProvider theme={theme}>
+      <WagmiConfig client={wagmiClient}>
+        <RainbowKitProvider chains={chains}>
+          <Component {...pageProps} />
+        </RainbowKitProvider>
+      </WagmiConfig>
+    </ChakraProvider>
   );
 }
 
