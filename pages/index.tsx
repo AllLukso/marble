@@ -5,13 +5,18 @@ import { useAccount } from "wagmi";
 import useIssuedTokens from "../hooks/useIssuedTokens";
 import styles from "../styles/Home.module.css";
 import { Image } from "@chakra-ui/react";
+import useOwnedTokenAddresses from "../hooks/useOwnedTokenAddresses";
+import useOwnedTokens from "../hooks/useOwnedTokens";
 
 const Home: NextPage = () => {
   const { address } = useAccount();
-  const { tokens: issuedTokens, isLoading } = useIssuedTokens(address);
+  // const { tokens: issuedTokens, isLoading } = useIssuedTokens(address);
+  const { tokens: issuedTokens, isLoading } = useOwnedTokens(address);
+  const { tokenAddresses } = useOwnedTokenAddresses(address);
 
   console.log("tokens: ", issuedTokens);
   console.log("isLoading: ", isLoading);
+  console.log("tokenAddresses: ", tokenAddresses);
 
   return (
     <div className={styles.container}>
