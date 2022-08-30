@@ -33,30 +33,6 @@
   height: 100%;
 }
 
-.balanceContainer {
-  width: 100%;
-  height: 20%;
-
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-}
-
-.tokenContainer {
-  width: 446px;
-  height: 658px;
-
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-}
-
-.detailContainer {
-  width: 697px;
-  height: 654px;
-
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-}
-
 .profileContainer {
   position: relative;
   width: 276px;
@@ -185,81 +161,63 @@
   align-items: center;
 }
 
-.footer {
-  display: flex;
-  flex: 1;
-  padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
-  justify-content: center;
-  align-items: center;
+.balanceContainer {
+  width: 100%;
+  height: 20%;
+
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 2rem;
+  justify-content: space-between;
 }
 
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
+.balanceContainerLeftSection {
+  align-items: flex-start !important;
 }
 
-.title a {
-  color: #0070f3;
-  text-decoration: none;
+.balanceContainerRightSection {
+  align-items: flex-end !important;
 }
 
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
+.balanceContainerTitle {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+
+  color: #ffffff;
 }
 
-.title {
-  margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
-
+.balanceContainerBalance {
   font-family: "Lexend Mega";
   font-style: normal;
   font-weight: 700;
   font-size: 48px;
   line-height: 60px;
-  /* identical to box height */
 
   letter-spacing: -0.1em;
 
   color: #ffffff;
-
-  padding-bottom: 0.5rem;
 }
 
-.subtitle {
-  width: 363px;
-
-  font-family: "Lexend Mega";
+.balanceContainerAddress {
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
-  line-height: 25px;
-  text-align: center;
-  letter-spacing: -0.1em;
+  line-height: 24px;
 
-  color: rgba(255, 255, 255, 0.8);
-  padding-bottom: 2rem;
+  color: #ffffff;
 }
 
-.connectButton {
-  background: rgba(5, 1, 9, 0.5) !important;
-  width: 300px !important;
-  height: 76px !important;
-  border-radius: 20px !important;
+.balanceContainerButton {
+  background: rgba(0, 0, 0, 0.01) !important;
+  width: 134px !important;
+  height: 53px !important;
+  border-radius: 10px !important;
 
-  border: 1px solid #ffffff;
-
-  font-family: "Lexend Mega";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px !important;
-  line-height: 25px;
-
+  border: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   text-align: center;
@@ -270,194 +228,109 @@
   transition: 0.3s ease-in-out;
 }
 
-.connectButton:hover {
+.balanceContainerButtonText {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+
+  padding-left: 0.5rem;
+}
+
+.balanceContainerButton:hover {
   background: rgba(35, 35, 35, 0.5) !important;
 }
 
-.marbleOne {
-  position: absolute;
-  width: 139.65px;
-  height: 139.65px;
-  left: 280px;
-  top: 700px;
+.tokenContainer {
+  width: 446px;
+  height: 587px;
 
-  background: radial-gradient(
-    53% 53% at 39.04% 34.93%,
-    #af4979 0%,
-    #2e001f 100%
-  );
-
-  box-shadow: -5px 5px 60px rgba(172, 57, 115, 0.5);
-  transform: rotate(79.25deg);
-
-  border-radius: 50%;
-}
-
-.marbleTwo {
-  position: absolute;
-  width: 85.5px;
-  height: 85.5px;
-  left: 1458.06px;
-  top: 244px;
-
-  background: radial-gradient(
-      52.44% 52.44% at 39.04% 34.93%,
-      #9458b1 0%,
-      #1f002c 100%
-    )
-    /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
-  box-shadow: 4px 4px 60px rgba(114, 45, 149, 0.8);
-  transform: rotate(1.38deg);
-  border-radius: 50%;
-}
-
-/* .connectButton {
-  padding: 1rem;
-
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 17px;
-
-  width: 220px;
-  height: 50px;
-  border: none;
-  outline: none;
-  color: #fff;
-  background: #111;
-  cursor: pointer;
-  position: relative;
-  z-index: 0;
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 10px;
+
+  padding: 1.5rem 1rem;
 }
 
-.connectButton:before {
-  content: "";
-  background: linear-gradient(
-    45deg,
-    #ff0000,
-    #ff7300,
-    #fffb00,
-    #48ff00,
-    #00ffd5,
-    #002bff,
-    #7a00ff,
-    #ff00c8,
-    #ff0000
-  );
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  background-size: 400%;
-  z-index: -1;
-  filter: blur(5px);
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  animation: glowing 20s linear infinite;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-  border-radius: 10px;
-}
-
-.connectButton:active {
-  color: #000;
-}
-
-.connectButton:active:after {
-  background: transparent;
-}
-
-.connectButton:hover:before {
-  opacity: 1;
-}
-
-.connectButton:after {
-  z-index: -1;
-  content: "";
-  position: absolute;
+.tokenContainerTitleBox {
   width: 100%;
-  height: 100%;
-  background: #111;
-  left: 0;
-  top: 0;
-  border-radius: 10px;
-}
-*/
-.title,
-.description {
-  text-align: center;
-}
-
-.description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
-}
-
-.code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
-}
-
-.grid {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
+  justify-content: flex-start !important;
+  padding-left: 1rem;
 }
 
-.card {
-  margin: 1rem;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
+.tokenContainerTitle {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 37px;
+  /* identical to box height */
+
+  color: #ffffff;
+}
+
+.tokenListCellContainer {
+  width: 100%;
+  overflow-y: scroll;
+  padding: 0 0.5rem;
+}
+
+.tokenListCell {
+  width: 100%;
+  display: flex;
+  justify-content: space-between !important;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0.5rem;
+  /* background: rgba(255, 255, 255, 0.05); */
+}
+
+.tokenName {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+
+  padding-left: 0.5rem;
+}
+
+.tokenListCellRightSection {
+  display: flex;
+  align-items: flex-end !important;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.tokenFiatBalance {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.tokenCryptoBalance {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.detailContainer {
+  width: 697px;
+  height: 587px;
+
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
 }
 
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
-}
+.detailContainerTitle {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 37px;
+  /* identical to box height */
 
-.card h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
-}
-
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
-}
-
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .card,
-  .footer {
-    border-color: #222;
-  }
-  .code {
-    background: #111;
-  }
-  .logo img {
-    filter: invert(1);
-  }
+  color: #ffffff;
 }

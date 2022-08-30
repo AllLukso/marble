@@ -41,6 +41,18 @@ const dummyData = [
     symbol: "LYX",
     imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
   },
+  {
+    name: "Lukso",
+    balance: "0.00",
+    symbol: "LYX",
+    imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
+  },
+  {
+    name: "Lukso",
+    balance: "0.00",
+    symbol: "LYX",
+    imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
+  },
 ];
 
 const Main = () => {
@@ -101,41 +113,60 @@ const Main = () => {
         </VStack>
         <VStack className={styles.mainContainer} gap={2}>
           <HStack className={styles.balanceContainer}>
-            <VStack>
+            <VStack className={styles.balanceContainerLeftSection}>
               <Text className={styles.balanceContainerTitle}>
                 Your Total Balance
               </Text>
               <Text className={styles.balanceContainerBalance}>$12,891.90</Text>
             </VStack>
-            <VStack>
+            <VStack className={styles.balanceContainerRightSection}>
               <HStack>
-                <CopyIcon />
+                <CopyIcon color="white" />
                 <Text className={styles.balanceContainerAddress}>
                   0x2dA9...796e
                 </Text>
               </HStack>
-              <HStack className={styles.balanceContainerButtons}>
-                <Button>Buy</Button>
-                <Button>Send</Button>
-                <Button>Swap</Button>
+              <HStack className={styles.balanceContainerButtonList}>
+                <Button className={styles.balanceContainerButton}>
+                  <FaGithub color="white" />
+                  <Text className={styles.balanceContainerButtonText}>Buy</Text>
+                </Button>
+                <Button className={styles.balanceContainerButton}>
+                  <FaGithub color="white" />
+                  <Text className={styles.balanceContainerButtonText}>
+                    Send
+                  </Text>
+                </Button>
+                <Button className={styles.balanceContainerButton}>
+                  <FaGithub color="white" />
+                  <Text className={styles.balanceContainerButtonText}>
+                    Swap
+                  </Text>
+                </Button>
               </HStack>
             </VStack>
           </HStack>
           <HStack gap={2}>
             <VStack className={styles.tokenContainer}>
-              <Text className={styles.tokenContainerTitle}>Tokens</Text>
-              <VStack>
+              <Box className={styles.tokenContainerTitleBox}>
+                <Text className={styles.tokenContainerTitle}>Tokens</Text>
+              </Box>
+              <VStack className={styles.tokenListCellContainer}>
                 {dummyData.map(({ name, balance, symbol, imageUrl }, idx) => (
-                  <HStack key={idx}>
-                    <Image
-                      src={imageUrl}
-                      alt={name}
-                      className={styles.tokenImage}
-                    />
-                    <Text>{name}</Text>
-                    <VStack>
-                      <Text>{balance}</Text>
-                      <Text>{`${balance}${symbol}`}</Text>
+                  <HStack key={idx} className={styles.tokenListCell}>
+                    <HStack className={styles.tokenListCellLeftSection}>
+                      <Image
+                        src={imageUrl}
+                        alt={name}
+                        className={styles.tokenImage}
+                      />
+                      <Text className={styles.tokenName}>{name}</Text>
+                    </HStack>
+                    <VStack className={styles.tokenListCellRightSection}>
+                      <Text className={styles.tokenFiatBalance}>{balance}</Text>
+                      <Text
+                        className={styles.tokenCryptoBalance}
+                      >{`${balance}${symbol}`}</Text>
                     </VStack>
                   </HStack>
                 ))}
