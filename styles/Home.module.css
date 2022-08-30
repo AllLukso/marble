@@ -42,6 +42,99 @@
   margin: 0;
   line-height: 1.15;
   font-size: 4rem;
+
+  font-family: "Lexend Mega";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 60px;
+  /* identical to box height */
+
+  letter-spacing: -0.1em;
+
+  color: #ffffff;
+
+  padding-bottom: 0.5rem;
+}
+
+.subtitle {
+  width: 363px;
+
+  font-family: "Lexend Mega";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 25px;
+  text-align: center;
+  letter-spacing: -0.1em;
+
+  color: rgba(255, 255, 255, 0.8);
+  padding-bottom: 2rem;
+}
+
+.connectButton {
+  background: rgba(5, 1, 9, 0.5) !important;
+  width: 300px !important;
+  height: 76px !important;
+  border-radius: 20px !important;
+
+  border: 1px solid #ffffff;
+
+  font-family: "Lexend Mega";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px !important;
+  line-height: 25px;
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.1em;
+
+  color: #ffffff;
+
+  transition: 0.3s ease-in-out;
+}
+
+.connectButton:hover {
+  background: rgba(35, 35, 35, 0.5) !important;
+}
+
+.marbleOne {
+  position: absolute;
+  width: 139.65px;
+  height: 139.65px;
+  left: 280px;
+  top: 700px;
+
+  background: radial-gradient(
+    53% 53% at 39.04% 34.93%,
+    #af4979 0%,
+    #2e001f 100%
+  );
+
+  box-shadow: -5px 5px 60px rgba(172, 57, 115, 0.5);
+  transform: rotate(79.25deg);
+
+  border-radius: 50%;
+}
+
+.marbleTwo {
+  position: absolute;
+  width: 85.5px;
+  height: 85.5px;
+  left: 1458.06px;
+  top: 244px;
+
+  background: radial-gradient(
+      52.44% 52.44% at 39.04% 34.93%,
+      #9458b1 0%,
+      #1f002c 100%
+    )
+    /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+  box-shadow: 4px 4px 60px rgba(114, 45, 149, 0.8);
+  transform: rotate(1.38deg);
+  border-radius: 50%;
 }
 
 .title,
@@ -100,11 +193,6 @@
   margin: 0;
   font-size: 1.25rem;
   line-height: 1.5;
-}
-
-.logo {
-  height: 1em;
-  margin-left: 0.5rem;
 }
 
 @media (max-width: 600px) {

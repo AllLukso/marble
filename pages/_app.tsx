@@ -11,6 +11,7 @@ import Web3 from "web3";
 
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import Navbar from "@components/Navbar";
 
 declare global {
   interface Window {
@@ -92,6 +93,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
       <WagmiConfig client={wagmiClient}>
+        <Navbar />
         <Component {...pageProps} />
       </WagmiConfig>
     </ChakraProvider>
