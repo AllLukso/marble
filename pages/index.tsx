@@ -1,22 +1,73 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useAccount } from "wagmi";
+import {
+  useAccount,
+  useContractWrite,
+  usePrepareContractWrite,
+  useSigner,
+} from "wagmi";
 import useIssuedTokens from "../hooks/useIssuedTokens";
 import styles from "../styles/Home.module.css";
 import { Image } from "@chakra-ui/react";
 import useOwnedTokenAddresses from "../hooks/useOwnedTokenAddresses";
 import useOwnedTokens from "../hooks/useOwnedTokens";
+import LSP7Mintable from "@lukso/lsp-smart-contracts/artifacts/LSP7Mintable.json";
+import { ethers } from "ethers";
 
 const Home: NextPage = () => {
   const { address } = useAccount();
-  // const { tokens: issuedTokens, isLoading } = useIssuedTokens(address);
-  const { tokens: issuedTokens, isLoading } = useOwnedTokens(address);
+  const { data: signer, isError } = useSigner();
+
+  const { tokens: issuedTokens, isLoading } = useIssuedTokens(address);
+  // const { tokens: issuedTokens, isLoading } = useOwnedTokens(address);
   const { tokenAddresses } = useOwnedTokenAddresses(address);
 
   console.log("tokens: ", issuedTokens);
   console.log("isLoading: ", isLoading);
   console.log("tokenAddresses: ", tokenAddresses);
+
+  // 1.8M of 5M gas used
+
+  async function deployContract() {
+    if (!signer) return;
+
+    const contractFactory = new ethers.ContractFactory(
+      LSP7Mintable.abi,
+      LSP7Mintable.bytecode,
+      signer
+    );
+
+    // const contract = await contractFactory.deploy(100);
+    const myToken = await contractFactory.deploy(
+      "My LSP7 Token", // token name
+      "LSP7", // token symbol
+      "0x0187fdcd74aE1C258513F41062ae508EBD4BfbB9", // new owner, who will mint later
+      false // isNonDivisible = TRUE, means NOT divisible, decimals = 0)
+    );
+
+    console.log("contrat deployed");
+    console.log("contract: ", myToken);
+    console.log("contract address: ", myToken.address);
+    // 0xeAab1C856cEd4631804A1e18c4Ba9B8B6Aa264Ea
+  }
+
+  // const { config } = usePrepareContractWrite({
+  //   addressOrName: "0x8Dec478C52c63552708559340B6Cc4456a454d49",
+  //   contractInterface: GiftlyProtocol.abi,
+  //   functionName: "gift",
+  //   args: [demoRecipient, demoTokenURI, ethers.utils.parseEther(".5")],
+  //   overrides: {
+  //     value: ethers.utils.parseEther(".51"),
+  //   },
+  // });
+
+  // const {
+  //   data: txnData,
+  //   isLoading,
+  //   isSuccess,
+  //   write: mintLSP7,
+  // } = useContractWrite(config);
 
   return (
     <div className={styles.container}>
@@ -30,7 +81,7 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
-        <ConnectButton />
+        {/* <ConnectButton /> */}
         {isLoading ? (
           <div>Loading...</div>
         ) : (
@@ -53,6 +104,7 @@ const Home: NextPage = () => {
             }
           )
         )}
+        <button onClick={deployContract}>Deploy Token</button>
       </main>
     </div>
   );
