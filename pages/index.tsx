@@ -3,6 +3,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import {
   useAccount,
+  useConnect,
   useContractWrite,
   usePrepareContractWrite,
   useSigner,
@@ -15,9 +16,15 @@ import useOwnedTokens from "../hooks/useOwnedTokens";
 import LSP7Mintable from "@lukso/lsp-smart-contracts/artifacts/LSP7Mintable.json";
 import { Text, Button } from "@chakra-ui/react";
 import { ethers } from "ethers";
+import { InjectedConnector } from "wagmi/connectors/injected";
+import Landing from "@components/Landing";
+import Main from "@components/Main";
 
 const Home: NextPage = () => {
   const { address } = useAccount();
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  });
   const { data: signer, isError } = useSigner();
 
   const { tokens: issuedTokens, isLoading } = useIssuedTokens(address);
@@ -108,15 +115,9 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <VStack>
-          <Text className={styles.title}>Welcome to Marble</Text>
-          <Text className={styles.subtitle}>
-            Connect your Universal Profile to access to your wallet
-          </Text>
-          <Button className={styles.connectButton}>CONNECT PROFILE </Button>
-          <Box className={styles.marbleOne}></Box>
-          <Box className={styles.marbleTwo}></Box>
-        </VStack>
+        {!address ? <Landing /> : <Main />}
+        <Box className={styles.marbleOne}></Box>
+        <Box className={styles.marbleTwo}></Box>
       </main>
     </div>
   );
