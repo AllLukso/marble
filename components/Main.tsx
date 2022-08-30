@@ -1,8 +1,8 @@
 import styles from "../styles/Main.module.css";
 import { VStack, HStack, Box, Text, Button, Image } from "@chakra-ui/react";
 import { CopyIcon } from "@chakra-ui/icons";
-
 import { FaGithub } from "react-icons/fa";
+import PieChart from "@components/PieChart";
 
 const dummyData = [
   {
@@ -173,7 +173,27 @@ const Main = () => {
               </VStack>
             </VStack>
             <VStack className={styles.detailContainer}>
-              <Text className={styles.detailContainerTitle}>Overview</Text>
+              <Box className={styles.detailContainerTitleBox}>
+                <Text className={styles.detailContainerTitle}>Overview</Text>
+              </Box>
+              <PieChart
+                data={[
+                  { title: "One", value: 10, color: "#E38627" },
+                  { title: "Two", value: 15, color: "#C13C37" },
+                  { title: "Three", value: 20, color: "#6A2135" },
+                ]}
+              />
+              <VStack className={styles.scoreListContainer}>
+                {dummyData.map(({ name, balance }, idx) => (
+                  <HStack key={idx} className={styles.scoreContainer}>
+                    <Text className={styles.scoreLabel}>{name}</Text>
+                    <Box className={`${styles.scoreBarContainer}`}>
+                      <Box className={`${styles.scoreBar}`}></Box>
+                    </Box>
+                    <Text className={styles.scoreLabel}>8.6</Text>
+                  </HStack>
+                ))}
+              </VStack>
             </VStack>
           </HStack>
         </VStack>

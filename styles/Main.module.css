@@ -322,6 +322,15 @@
 
   background: rgba(255, 255, 255, 0.05);
   border-radius: 10px;
+
+  padding: 1.5rem 1rem;
+}
+
+.detailContainerTitleBox {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start !important;
+  padding-left: 1rem;
 }
 
 .detailContainerTitle {
@@ -333,4 +342,48 @@
   /* identical to box height */
 
   color: #ffffff;
+}
+
+.scoreListContainer {
+  color: white;
+  height: 300px;
+  overflow-y: scroll;
+}
+
+.scoreContainer {
+  padding-top: 0.5rem;
+}
+
+.scoreBarTokenLabel {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.scoreBarContainer {
+  position: relative;
+  width: 500px;
+  height: 10px;
+
+  background: rgba(217, 217, 217, 0.59);
+  border-radius: 5px;
+}
+
+.scoreBar {
+  position: absolute;
+  width: 75%;
+  height: 100%;
+
+  border-radius: 10px;
+  background: #e38627;
+}
+
+.scoreLabel {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
 }
