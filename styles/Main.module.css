@@ -12,6 +12,14 @@
   padding: 1.4rem;
 }
 
+.loadingProfile {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
 .contentContainer {
   width: 100%;
   height: 100%;
@@ -205,6 +213,28 @@
   color: #ffffff;
 }
 
+.copyAddressContainer {
+  opacity: 0.7;
+  transition: 0.2s ease-in-out;
+  position: relative;
+}
+
+.copyAddressContainer:hover {
+  opacity: 1;
+}
+
+.copiedPopover {
+  position: absolute;
+  color: white;
+  background: rgba(0, 0, 0, 0.95);
+  border-radius: 10px;
+  border: rgba(255, 255, 255, 0.3) 1px solid;
+  padding: 0.5rem 1rem;
+  left: 1.5rem;
+  bottom: 2rem;
+  transition: 3s ease-in-out;
+}
+
 .balanceContainerAddress {
   font-family: "Montserrat";
   font-style: normal;
@@ -340,6 +370,14 @@
 .tokenCryptoBalance {
   padding: 0 !important;
   margin: 0 !important;
+}
+
+.tokenImage {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  border-radius: 50%;
 }
 
 /* NFT CONTAINER */
@@ -1023,7 +1061,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
-  width: 6rem;
+  width: 3.5rem;
 }
 
 .scoreLabel {
@@ -1032,6 +1070,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
+  padding-left: 0.5rem;
 }
 
 .sendTokenContentContainer {

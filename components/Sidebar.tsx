@@ -12,31 +12,47 @@ import {
 } from "@chakra-ui/react";
 import { FaGithub, FaRegPaperPlane, FaBinoculars } from "react-icons/fa";
 import Link from "next/link";
+import { getIPFSUrl, getUserHash } from "@utils/helpers";
 
 type SidebarContainerProps = {
+  address?: string;
+  userProfile: any;
   selected: string;
 };
 
-const SidebarContainer = ({ selected }: SidebarContainerProps) => {
+const SidebarContainer = ({
+  address,
+  userProfile,
+  selected,
+}: SidebarContainerProps) => {
+  if (!address || !userProfile) return null;
+
+  const { name, profileImage, backgroundImage } = userProfile;
+
+  const coverImageUrl = getIPFSUrl(backgroundImage[0].url);
+  const profileImageUrl = getIPFSUrl(profileImage[0].url);
+
   return (
     <VStack className={styles.sidebarContainer}>
       <VStack>
         <Box className={styles.profileContainer}>
           <Box className={styles.coverImageOverlay}></Box>
           <Image
-            src="/cover.png"
+            src={coverImageUrl}
             alt="cover image"
             className={styles.coverImage}
           ></Image>
           <VStack className={styles.profileContentContainer}>
             <Image
-              src="/profile.png"
+              src={profileImageUrl}
               alt="cover image"
               className={styles.profileImage}
             ></Image>
             <HStack className={styles.profileNameContainer}>
-              <Text className={styles.profileUsername}>iamminci</Text>
-              <Text className={styles.profileUserhash}>#4229</Text>
+              <Text className={styles.profileUsername}>{name}</Text>
+              <Text className={styles.profileUserhash}>{`#${getUserHash(
+                address
+              )}`}</Text>
             </HStack>
           </VStack>
         </Box>

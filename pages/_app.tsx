@@ -44,10 +44,6 @@ const LuksoL16Chain: Chain = {
 const { chains, provider } = configureChains(
   [LuksoL16Chain],
   [
-    alchemyProvider({
-      apiKey: process.env.NEXT_ALCHEMY_ID,
-    }),
-    publicProvider(),
     jsonRpcProvider({
       rpc: (chain) => {
         if (chain.id !== LuksoL16Chain.id) return null;

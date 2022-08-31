@@ -6,6 +6,7 @@ import {
   useConnect,
   useContractWrite,
   usePrepareContractWrite,
+  useProvider,
   useSigner,
 } from "wagmi";
 import useIssuedTokens from "../hooks/useIssuedTokens";
@@ -22,9 +23,6 @@ import Main from "@components/Main";
 
 const Home: NextPage = () => {
   const { address } = useAccount();
-  const { connect } = useConnect({
-    connector: new InjectedConnector(),
-  });
   const { data: signer, isError } = useSigner();
 
   const { tokens: issuedTokens, isLoading } = useIssuedTokens(address);

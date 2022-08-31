@@ -15,6 +15,8 @@ import {
   AccordionButton,
   AccordionIcon,
   AccordionPanel,
+  Spinner,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 import {
   AddIcon,
@@ -29,7 +31,7 @@ import {
 import { ArrowUpDownIcon } from "@chakra-ui/icons";
 import { FaGithub, FaRegPaperPlane, FaBinoculars } from "react-icons/fa";
 import PieChart from "@components/PieChart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SuccessLottie from "@components/SuccessLottie";
 import Link from "next/link";
 
@@ -48,17 +50,26 @@ import SidebarContainer from "@components/Sidebar";
 import CryptoContainer from "@components/Crypto";
 import NFTContainer from "@components/NFT";
 import BalanceContainer from "@components/Balance";
-import { abridgeAddress, abridgeMessage } from "@utils/index";
+import { abridgeAddress, abridgeMessage } from "@utils/helpers";
+import UniversalProfileSchema from "@erc725/erc725.js/schemas/LSP3UniversalProfileMetadata.json";
+import { ERC725, ERC725JSONSchema } from "@erc725/erc725.js";
+import { IPFS_GATEWAY_BASE_URL } from "../constants";
+import { useAccount } from "wagmi";
+import useUniversalProfile from "hooks/useUniversalProfile";
 
 const Main = () => {
   const router = useRouter();
+  const { address } = useAccount();
+
+  const { userProfile, isLoading: isLoadingProfile } =
+    useUniversalProfile(address);
 
   function getContent() {
     switch (router.asPath) {
       case "/":
-        return <CryptoContainer />;
+        return <CryptoContainer address={address} />;
       case "/#crypto":
-        return <CryptoContainer />;
+        return <CryptoContainer address={address} />;
       case "/#nft":
         return <NFTContainer />;
       case "/#vault":
@@ -70,13 +81,40 @@ const Main = () => {
 
   return (
     <div className={styles.container}>
-      <HStack className={styles.contentContainer} gap={2}>
-        <SidebarContainer selected={router.asPath} />
-        <VStack className={styles.mainContainer} gap={2}>
-          <BalanceContainer />
-          {getContent()}
+      {isLoadingProfile ? (
+        <VStack className={styles.loadingProfile}>
+          <Spinner color="white" size="lg" />
+          <Text color="white">Loading Universal Profile...</Text>
         </VStack>
-      </HStack>
+      ) : userProfile === false ? (
+        <VStack className={styles.loadingProfile}>
+          <Text color="white">
+            The address you've connected with is not a LUKSO Universal Profile,
+            please try again.
+          </Text>
+          <ChakraLink
+            href="https://docs.lukso.tech/guides/browser-extension/install-browser-extension/"
+            isExternal
+          >
+            <Text color="white">
+              If you do not have a Universal Profile yet, click here to install
+              the extension and create one. one.
+            </Text>
+          </ChakraLink>
+        </VStack>
+      ) : (
+        <HStack className={styles.contentContainer} gap={2}>
+          <SidebarContainer
+            address={address}
+            userProfile={userProfile}
+            selected={router.asPath}
+          />
+          <VStack className={styles.mainContainer} gap={2}>
+            <BalanceContainer address={address} userProfile={userProfile} />
+            {getContent()}
+          </VStack>
+        </HStack>
+      )}
     </div>
   );
 };

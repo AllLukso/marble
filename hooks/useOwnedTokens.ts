@@ -15,11 +15,12 @@ import {
 
 import web3 from "web3";
 
-export default function useIssuedTokens(address: string) {
+export default function useOwnedTokens(address?: string) {
   const [tokens, setTokens] = useState<any>([]); // TODO figure out type here
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    if (!address) return;
     setIsLoading(true);
     async function fetchIssuedTokens() {
       const config = {

@@ -11,33 +11,106 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import { CopyIcon, RepeatIcon } from "@chakra-ui/icons";
-import { FaGithub, FaRegPaperPlane, FaBinoculars } from "react-icons/fa";
+import {
+  FaGithub,
+  FaRegPaperPlane,
+  FaBinoculars,
+  FaExchangeAlt,
+  FaFaucet,
+  FaMoneyBill,
+  FaMoneyCheckAlt,
+} from "react-icons/fa";
+import { abridgeAddress } from "@utils/helpers";
+import { useState } from "react";
+import { useBalance } from "wagmi";
 
-const BalanceContainer = () => {
+type BalanceContainerProps = {
+  address?: string;
+  userProfile: any;
+};
+
+const BalanceContainer = ({ address, userProfile }: BalanceContainerProps) => {
+  const {
+    data: balance,
+    isError,
+    isLoading,
+  } = useBalance({
+    addressOrName: address,
+  });
+
+  const [copied, setCopied] = useState(false);
+  if (!address || !userProfile) return null;
+
+  async function handleCopy() {
+    if (!address) return;
+    navigator.clipboard.writeText(address);
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  }
+
   return (
     <HStack className={styles.balanceContainer}>
       <VStack className={styles.balanceContainerLeftSection}>
-        <Text className={styles.balanceContainerTitle}>Your Total Balance</Text>
-        <Text className={styles.balanceContainerBalance}>$12,891.90</Text>
+        <Text className={styles.balanceContainerTitle}>Your LYX Balance</Text>
+        <Text className={styles.balanceContainerBalance}>
+          {balance ? balance.formatted : "0"} LYX
+        </Text>
       </VStack>
-      <VStack className={styles.balanceContainerRightSection}>
-        <HStack>
+      <VStack className={styles.balanceContainerRightSection} gap={1}>
+        <HStack
+          cursor="pointer"
+          onClick={handleCopy}
+          className={styles.copyAddressContainer}
+        >
           <CopyIcon color="white" />
-          <Text className={styles.balanceContainerAddress}>0x2dA9...796e</Text>
+          <Text className={styles.balanceContainerAddress}>
+            {abridgeAddress(address)}
+          </Text>
+          {copied && (
+            <VStack className={styles.copiedPopover}>
+              <Text>Copied!</Text>
+            </VStack>
+          )}
         </HStack>
         <HStack className={styles.balanceContainerButtonList}>
-          <Button className={styles.balanceContainerButton}>
-            <FaGithub color="white" />
-            <Text className={styles.balanceContainerButtonText}>Buy</Text>
-          </Button>
-          <Button className={styles.balanceContainerButton}>
-            <FaGithub color="white" />
-            <Text className={styles.balanceContainerButtonText}>Send</Text>
-          </Button>
-          <Button className={styles.balanceContainerButton}>
-            <FaGithub color="white" />
-            <Text className={styles.balanceContainerButtonText}>Swap</Text>
-          </Button>
+          <a
+            href="https://faucet.l16.lukso.network/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Button className={styles.balanceContainerButton}>
+              <FaFaucet color="white" size="1rem" />
+              <Text className={styles.balanceContainerButtonText}>Drip</Text>
+            </Button>
+          </a>
+          <HStack className={styles.balanceContainerButtonList}>
+            <a
+              href="https://www.kucoin.com/trade/LYXE-USDT?spm=kcWeb.B1homepage.Header4.1"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Button className={styles.balanceContainerButton}>
+                <FaMoneyCheckAlt color="white" size="1rem" />
+                <Text className={styles.balanceContainerButtonText}>Buy</Text>
+              </Button>
+            </a>
+            <Button className={styles.balanceContainerButton}>
+              <FaRegPaperPlane color="white" size="1rem" />
+              <Text className={styles.balanceContainerButtonText}>Send</Text>
+            </Button>
+            <a
+              href="https://coinmarketcap.com/dexscan/ethereum/0xd583d0824ed78767e0e35b9bf7a636c81c665aa8"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Button className={styles.balanceContainerButton}>
+                <FaExchangeAlt color="white" size="1rem" />
+                <Text className={styles.balanceContainerButtonText}>Swap</Text>
+              </Button>
+            </a>
+          </HStack>
         </HStack>
       </VStack>
     </HStack>

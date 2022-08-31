@@ -1,11 +1,14 @@
 import Link from "next/link";
 import styles from "@styles/Navbar.module.css";
-import { HStack, Image } from "@chakra-ui/react";
-// import { HamburgerIcon } from "@chakra-ui/icons";
-// import { useAccount } from "wagmi";
+import { Button, HStack, Image } from "@chakra-ui/react";
+import { useAccount, useDisconnect } from "wagmi";
+import { abridgeAddress } from "@utils/helpers";
+import { useState } from "react";
 
 const Navbar = () => {
-  // const { address } = useAccount();
+  const { address } = useAccount();
+  const { disconnect } = useDisconnect();
+  const [isHover, setIsHover] = useState<boolean>(false);
 
   return (
     <HStack className={styles.navbar}>
@@ -17,14 +20,16 @@ const Navbar = () => {
           className={styles.logo}
         ></Image>
       </Link>
-      {/* <HStack gap={2}>
-        <HamburgerIcon
-          onClick={onOpen}
-          className={styles.hamburgerButton}
-          w={7}
-          h={7}
-        />
-      </HStack> */}
+      {address && (
+        <Button
+          className={styles.addressButton}
+          onClick={() => disconnect?.()}
+          onMouseEnter={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(false)}
+        >
+          {isHover ? "Disconnect" : abridgeAddress(address)}
+        </Button>
+      )}
     </HStack>
   );
 };

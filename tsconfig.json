@@ -18,6 +18,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
       "@components/*": [
@@ -35,8 +36,8 @@
       "@firebase/*": [
         "firebase/*"
       ],
-      "@public/*": [
-        "public/*"
+      "@hooks/*": [
+        "hooks/*"
       ]
     }
   },

@@ -13,7 +13,7 @@ function StyledPieChart(props: Props) {
     if (hovered === i) {
       return {
         ...entry,
-        color: "grey",
+        color: "rgba(255, 255, 255, 0.7)",
       };
     }
     return entry;
@@ -29,20 +29,18 @@ function StyledPieChart(props: Props) {
         fontSize: "6px",
       }}
       data={data}
-      radius={PieChart.defaultProps.radius - 10}
+      radius={PieChart.defaultProps.radius - 5}
       lineWidth={lineWidth}
       segmentsStyle={{ transition: "stroke .3s", cursor: "pointer" }}
-      segmentsShift={(index) => (index === selected ? 6 : 1)}
       animate
-      label={({ dataEntry }) => Math.round(dataEntry.percentage) + "%"}
+      label={({ dataEntry }) =>
+        `${dataEntry.label} (${Math.round(dataEntry.percentage)}%)`
+      }
       labelPosition={100 - lineWidth / 2}
       labelStyle={{
         fill: "#fff",
         opacity: 0.75,
         pointerEvents: "none",
-      }}
-      onClick={(_, index) => {
-        setSelected(index === selected ? undefined : index);
       }}
       onMouseOver={(_, index) => {
         setHovered(index);
