@@ -520,6 +520,64 @@
   align-items: center;
 }
 
+.sendNFTContentContainer {
+  padding: 1rem;
+  width: 100%;
+  color: white;
+  justify-content: center;
+  align-items: center;
+}
+
+.NFTrecipientLabel {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: #ffffff;
+}
+
+.NFTaddressInput {
+  width: 474px !important;
+  height: 54px !important;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px !important;
+  line-height: 24px;
+
+  padding: 1rem !important;
+
+  background: #0d0d0d;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.NFTrecipientContainer {
+  display: flex;
+  align-items: flex-start !important;
+  padding-top: 0.5rem;
+}
+
+.NFTswitchContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0.5rem;
+}
+
+.NFTswitchText {
+  width: 90%;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
+
 .detailContainerTitleBox {
   width: 100%;
   display: flex;

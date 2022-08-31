@@ -159,6 +159,7 @@ const SidebarContainer = () => {
 const NFTContainer = () => {
   const [selectedNFT, setSelectedNFT] = useState<any>(null);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isSend, setIsSend] = useState(false);
 
   return (
     <HStack className={styles.cryptoContainer} gap={2}>
@@ -200,25 +201,24 @@ const NFTContainer = () => {
         </VStack>
       </VStack>
       {isSuccess ? (
-        <SuccessContainer />
+        <SuccessContainer isNFT label={selectedNFT.name} />
       ) : !selectedNFT ? (
         <OverviewNFTContainer data={dummyData} />
+      ) : !isSend ? (
+        <NFTDetailContainer setIsSend={setIsSend} nft={selectedNFT} />
       ) : (
-        <NFTDetailContainer
-          // setIsSuccess={setIsSuccess}
-          nft={selectedNFT}
-        />
+        <SendNFTContainer setIsSuccess={setIsSuccess} nft={selectedNFT} />
       )}
     </HStack>
   );
 };
 
 type NFTDetailContainerProps = {
+  setIsSend: (isSend: boolean) => void;
   nft: any;
-  setIsSuccess?: (isSuccess: boolean) => void;
 };
 
-const NFTDetailContainer = ({ nft, setIsSuccess }: NFTDetailContainerProps) => {
+const NFTDetailContainer = ({ nft, setIsSend }: NFTDetailContainerProps) => {
   return (
     <VStack className={styles.NFTdetailContainer}>
       <HStack className={styles.detailContainerTitleBox}>
@@ -227,7 +227,10 @@ const NFTDetailContainer = ({ nft, setIsSuccess }: NFTDetailContainerProps) => {
           <Button className={styles.NFTdetailButton}>
             <RepeatIcon color="white" w="1.5rem" h="1.5rem" />
           </Button>
-          <Button className={styles.NFTdetailButton}>
+          <Button
+            className={styles.NFTdetailButton}
+            onClick={() => setIsSend(true)}
+          >
             <FaRegPaperPlane color="white" size="1.5rem" />
           </Button>
           <Button className={styles.NFTdetailButton}>
@@ -261,43 +264,41 @@ const NFTDetailContainer = ({ nft, setIsSuccess }: NFTDetailContainerProps) => {
 };
 
 type SendTokenContainerProps = {
-  nftName: string;
+  nft: any;
   setIsSuccess: (isSuccess: boolean) => void;
 };
 
-const SendNFTContainer = ({
-  nftName,
-  setIsSuccess,
-}: SendTokenContainerProps) => {
+const SendNFTContainer = ({ nft, setIsSuccess }: SendTokenContainerProps) => {
   return (
     <VStack className={styles.NFTdetailContainer}>
       <Box className={styles.detailContainerTitleBox}>
-        <Text className={styles.detailContainerTitle}>{`Send ${nftName}`}</Text>
+        <Text
+          className={styles.detailContainerTitle}
+        >{`Send ${nft.name}`}</Text>
       </Box>
-      <VStack className={styles.sendTokenContentContainer} gap={7}>
-        <HStack className={styles.sendTokenInputContainer}>
-          <Button className={styles.sendTokenMaxButton}>
-            <Text>MAX</Text>
-          </Button>
-          <Input placeholder="$0" className={styles.amountInput} />
-          <Button className={styles.sendTokenMaxButton}>
-            <ArrowUpDownIcon color="white" w="20px" h="20px" />
-          </Button>
-        </HStack>
-        <VStack className={styles.recipientContainer}>
-          <Text className={styles.recipientLabel}>Recipient</Text>
-          <Input placeholder="Enter Address" className={styles.addressInput} />
+      <VStack className={styles.sendNFTContentContainer} gap={3}>
+        <Image
+          src={nft.imageUrl}
+          alt={nft.name}
+          className={styles.NFTdetailImage}
+        ></Image>
+        <VStack className={styles.NFTrecipientContainer}>
+          <Text className={styles.NFTrecipientLabel}>Recipient</Text>
+          <Input
+            placeholder="Enter Address"
+            className={styles.NFTaddressInput}
+          />
         </VStack>
-        <HStack className={styles.switchContainer}>
+        <HStack className={styles.NFTswitchContainer}>
           <Switch
             defaultChecked
             colorScheme="purple"
             onChange={() => {}}
             className={styles.forceSwitch}
           />
-          <Text className={styles.switchText}>
-            I would like to send my tokens to this address, even if it does not
-            support the LSP1-UniversalReceiver standard. Learn more
+          <Text className={styles.NFTswitchText}>
+            I would like to send my NFT to this address, even if it does not
+            support the LSP1-UniversalReceiver standard. Learn more.
           </Text>
         </HStack>
         <HStack className={styles.buttonContainer}>
