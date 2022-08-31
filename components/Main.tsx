@@ -8,285 +8,271 @@ import {
   Image,
   Input,
   Switch,
+  SimpleGrid,
 } from "@chakra-ui/react";
-import { CopyIcon } from "@chakra-ui/icons";
+import { CopyIcon, RepeatIcon } from "@chakra-ui/icons";
 import { ArrowUpDownIcon } from "@chakra-ui/icons";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaRegPaperPlane, FaBinoculars } from "react-icons/fa";
 import PieChart from "@components/PieChart";
 import { useState } from "react";
 import SuccessLottie from "@components/SuccessLottie";
+import Link from "next/link";
 
-const dummyData = [
-  {
-    id: 1,
-    name: "Lukso",
-    balance: "0.00",
-    symbol: "LYX",
-    imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
-  },
-  {
-    id: 2,
-    name: "Bitcoin",
-    balance: "0.00",
-    symbol: "LYX",
-    imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
-  },
-  {
-    id: 3,
-    name: "Ethereum",
-    balance: "0.00",
-    symbol: "LYX",
-    imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
-  },
-  {
-    id: 4,
-    name: "Dogecoin",
-    balance: "0.00",
-    symbol: "LYX",
-    imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
-  },
-  {
-    id: 5,
-    name: "Lukso",
-    balance: "0.00",
-    symbol: "LYX",
-    imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
-  },
-  {
-    id: 6,
-    name: "Lukso",
-    balance: "0.00",
-    symbol: "LYX",
-    imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
-  },
-  {
-    id: 7,
-    name: "Lukso",
-    balance: "0.00",
-    symbol: "LYX",
-    imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
-  },
-  {
-    id: 8,
-    name: "Lukso",
-    balance: "0.00",
-    symbol: "LYX",
-    imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
-  },
-];
+import { useRouter } from "next/router";
+import { dummyData } from "@data/crypto";
+import { dummyData as NFTData } from "@data/nft";
+
+import SuccessContainer from "@components/Success";
+import {
+  OverviewCryptoContainer,
+  OverviewNFTContainer,
+} from "@components/Overview";
+import CryptoContainer from "@components/Crypto";
 
 const Main = () => {
-  const [selectedToken, setSelectedToken] = useState<any>(null);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const router = useRouter();
+
+  function getContent() {
+    switch (router.asPath) {
+      case "/":
+        return <CryptoContainer />;
+      case "/#crypto":
+        return <CryptoContainer />;
+      case "/#nft":
+        return <NFTContainer />;
+      default:
+        return <CryptoContainer />;
+    }
+  }
 
   return (
     <div className={styles.container}>
       <HStack className={styles.contentContainer} gap={2}>
-        <VStack className={styles.sidebarContainer}>
-          <VStack>
-            <Box className={styles.profileContainer}>
-              <Box className={styles.coverImageOverlay}></Box>
-              <Image
-                src="/cover.png"
-                alt="cover image"
-                className={styles.coverImage}
-              ></Image>
-              <VStack className={styles.profileContentContainer}>
-                <Image
-                  src="/profile.png"
-                  alt="cover image"
-                  className={styles.profileImage}
-                ></Image>
-                <HStack className={styles.profileNameContainer}>
-                  <Text className={styles.profileUsername}>iamminci</Text>
-                  <Text className={styles.profileUserhash}>#4229</Text>
-                </HStack>
-              </VStack>
-            </Box>
-          </VStack>
-          <VStack className={styles.sidebarTabListContainer}>
-            <HStack className={styles.sidebarTabContainer}>
-              <FaGithub color="white" />
-              <Text className={styles.sidebarTabTitle}>Crypto</Text>
-            </HStack>
-            <HStack className={styles.sidebarTabContainer}>
-              <FaGithub color="white" />
-              <Text className={styles.sidebarTabTitle}>NFTs</Text>
-            </HStack>
-            <HStack className={styles.sidebarTabContainer}>
-              <FaGithub color="white" />
-              <Text className={styles.sidebarTabTitle}>Vaults</Text>
-            </HStack>
-            <HStack className={styles.sidebarTabContainer}>
-              <FaGithub color="white" />
-              <Text className={styles.sidebarTabTitle}>Staking</Text>
-            </HStack>
-            <HStack className={styles.sidebarTabContainer}>
-              <FaGithub color="white" />
-              <Text className={styles.sidebarTabTitle}>Governance</Text>
-            </HStack>
-            <HStack className={styles.sidebarTabContainer}>
-              <FaGithub color="white" />
-              <Text className={styles.sidebarTabTitle}>Settings</Text>
-            </HStack>
-          </VStack>
-          <Text className={styles.sidebarFooter}>
-            Made with ❤️ by @iamminci
-          </Text>
-        </VStack>
+        <SidebarContainer />
         <VStack className={styles.mainContainer} gap={2}>
-          <HStack className={styles.balanceContainer}>
-            <VStack className={styles.balanceContainerLeftSection}>
-              <Text className={styles.balanceContainerTitle}>
-                Your Total Balance
-              </Text>
-              <Text className={styles.balanceContainerBalance}>$12,891.90</Text>
-            </VStack>
-            <VStack className={styles.balanceContainerRightSection}>
-              <HStack>
-                <CopyIcon color="white" />
-                <Text className={styles.balanceContainerAddress}>
-                  0x2dA9...796e
-                </Text>
-              </HStack>
-              <HStack className={styles.balanceContainerButtonList}>
-                <Button className={styles.balanceContainerButton}>
-                  <FaGithub color="white" />
-                  <Text className={styles.balanceContainerButtonText}>Buy</Text>
-                </Button>
-                <Button className={styles.balanceContainerButton}>
-                  <FaGithub color="white" />
-                  <Text className={styles.balanceContainerButtonText}>
-                    Send
-                  </Text>
-                </Button>
-                <Button className={styles.balanceContainerButton}>
-                  <FaGithub color="white" />
-                  <Text className={styles.balanceContainerButtonText}>
-                    Swap
-                  </Text>
-                </Button>
-              </HStack>
-            </VStack>
-          </HStack>
-          <HStack gap={2}>
-            <VStack className={styles.tokenContainer}>
-              <Box className={styles.tokenContainerTitleBox}>
-                <Text className={styles.tokenContainerTitle}>Tokens</Text>
-              </Box>
-              <VStack className={styles.tokenListCellContainer}>
-                {dummyData.map((token, idx) => (
-                  <HStack
-                    key={idx}
-                    className={`${styles.tokenListCell} ${
-                      selectedToken && selectedToken.id === token.id
-                        ? styles.selectedCell
-                        : ""
-                    }`}
-                    onClick={() => setSelectedToken(token)}
-                  >
-                    <HStack className={styles.tokenListCellLeftSection}>
-                      <Image
-                        src={token.imageUrl}
-                        alt={token.name}
-                        className={styles.tokenImage}
-                      />
-                      <Text className={styles.tokenName}>{token.name}</Text>
-                    </HStack>
-                    <VStack className={styles.tokenListCellRightSection}>
-                      <Text className={styles.tokenFiatBalance}>
-                        {token.balance}
-                      </Text>
-                      <Text
-                        className={styles.tokenCryptoBalance}
-                      >{`${token.balance}${token.symbol}`}</Text>
-                    </VStack>
-                  </HStack>
-                ))}
-              </VStack>
-            </VStack>
-            {true ? (
-              <SuccessContainer />
-            ) : !selectedToken ? (
-              <OverviewContainer />
-            ) : (
-              <SendTokenContainer
-                setIsSuccess={setIsSuccess}
-                tokenName={selectedToken.name}
-              />
-            )}
-          </HStack>
+          <BalanceContainer />
+          {getContent()}
         </VStack>
       </HStack>
     </div>
   );
 };
 
-const SuccessContainer = () => {
+const BalanceContainer = () => {
   return (
-    <VStack className={styles.detailContainer}>
-      <Box className={styles.detailContainerTitleBox}>
-        <Text className={styles.detailContainerTitle}>Overview</Text>
-      </Box>
-      <VStack className={styles.sentContainer}>
-        <VStack className={styles.sentContainerLottie}>
-          <SuccessLottie />
-        </VStack>
-        <VStack className={styles.sentContainerTextContainer}>
-          <Text className={styles.sentContainerTitle}>Successfully Sent!</Text>
-          <Text className={styles.sentContainerSubtitle}>1 LYX.t</Text>
-          <Text className={styles.sentContainerFooter}>
-            It may take up to ~2 min for the transaction to complete
-          </Text>
-        </VStack>
+    <HStack className={styles.balanceContainer}>
+      <VStack className={styles.balanceContainerLeftSection}>
+        <Text className={styles.balanceContainerTitle}>Your Total Balance</Text>
+        <Text className={styles.balanceContainerBalance}>$12,891.90</Text>
       </VStack>
+      <VStack className={styles.balanceContainerRightSection}>
+        <HStack>
+          <CopyIcon color="white" />
+          <Text className={styles.balanceContainerAddress}>0x2dA9...796e</Text>
+        </HStack>
+        <HStack className={styles.balanceContainerButtonList}>
+          <Button className={styles.balanceContainerButton}>
+            <FaGithub color="white" />
+            <Text className={styles.balanceContainerButtonText}>Buy</Text>
+          </Button>
+          <Button className={styles.balanceContainerButton}>
+            <FaGithub color="white" />
+            <Text className={styles.balanceContainerButtonText}>Send</Text>
+          </Button>
+          <Button className={styles.balanceContainerButton}>
+            <FaGithub color="white" />
+            <Text className={styles.balanceContainerButtonText}>Swap</Text>
+          </Button>
+        </HStack>
+      </VStack>
+    </HStack>
+  );
+};
+
+const SidebarContainer = () => {
+  return (
+    <VStack className={styles.sidebarContainer}>
+      <VStack>
+        <Box className={styles.profileContainer}>
+          <Box className={styles.coverImageOverlay}></Box>
+          <Image
+            src="/cover.png"
+            alt="cover image"
+            className={styles.coverImage}
+          ></Image>
+          <VStack className={styles.profileContentContainer}>
+            <Image
+              src="/profile.png"
+              alt="cover image"
+              className={styles.profileImage}
+            ></Image>
+            <HStack className={styles.profileNameContainer}>
+              <Text className={styles.profileUsername}>iamminci</Text>
+              <Text className={styles.profileUserhash}>#4229</Text>
+            </HStack>
+          </VStack>
+        </Box>
+      </VStack>
+      <VStack className={styles.sidebarTabListContainer}>
+        <Link href="/#crypto">
+          <HStack className={styles.sidebarTabContainer}>
+            <FaGithub color="white" />
+            <Text className={styles.sidebarTabTitle}>Crypto</Text>
+          </HStack>
+        </Link>
+        <Link href="/#nft">
+          <HStack className={styles.sidebarTabContainer}>
+            <FaGithub color="white" />
+            <Text className={styles.sidebarTabTitle}>NFTs</Text>
+          </HStack>
+        </Link>
+        <Link href="/#vault">
+          <HStack className={styles.sidebarTabContainer}>
+            <FaGithub color="white" />
+            <Text className={styles.sidebarTabTitle}>Vaults</Text>
+          </HStack>
+        </Link>
+        <Link href="/#staking">
+          <HStack className={styles.sidebarTabContainer}>
+            <FaGithub color="white" />
+            <Text className={styles.sidebarTabTitle}>Staking</Text>
+          </HStack>
+        </Link>
+        <Link href="/#governance">
+          <HStack className={styles.sidebarTabContainer}>
+            <FaGithub color="white" />
+            <Text className={styles.sidebarTabTitle}>Governance</Text>
+          </HStack>
+        </Link>
+        <Link href="/#settings">
+          <HStack className={styles.sidebarTabContainer}>
+            <FaGithub color="white" />
+            <Text className={styles.sidebarTabTitle}>Settings</Text>
+          </HStack>
+        </Link>
+      </VStack>
+      <Text className={styles.sidebarFooter}>Made with ❤️ by @iamminci</Text>
     </VStack>
   );
 };
 
-const OverviewContainer = () => {
+const NFTContainer = () => {
+  const [selectedNFT, setSelectedNFT] = useState<any>(null);
+  const [isSuccess, setIsSuccess] = useState(false);
+
   return (
-    <VStack className={styles.detailContainer}>
-      <Box className={styles.detailContainerTitleBox}>
-        <Text className={styles.detailContainerTitle}>Overview</Text>
-      </Box>
-      <PieChart
-        data={[
-          { title: "One", value: 10, color: "#E38627" },
-          { title: "Two", value: 15, color: "#C13C37" },
-          { title: "Three", value: 20, color: "#6A2135" },
-        ]}
-      />
-      <VStack className={styles.scoreListContainer}>
-        {dummyData.map(({ name, balance }, idx) => (
-          <HStack key={idx} className={styles.scoreContainer}>
-            <Text className={styles.scoreLabel}>{name}</Text>
-            <Box className={`${styles.scoreBarContainer}`}>
-              <Box className={`${styles.scoreBar}`}></Box>
-            </Box>
-            <Text className={styles.scoreLabel}>8.6</Text>
+    <HStack className={styles.cryptoContainer} gap={2}>
+      <VStack className={styles.NFTContainer}>
+        <Box className={styles.tokenContainerTitleBox}>
+          <Text className={styles.tokenContainerTitle}>NFTs</Text>
+        </Box>
+        <VStack className={styles.tokenListCellContainer}>
+          <SimpleGrid columns={3} spacing={0}>
+            {NFTData.map((nft, idx) => (
+              <VStack
+                key={idx}
+                className={`${styles.NFTListCell} ${
+                  selectedNFT && selectedNFT.id === nft.id
+                    ? styles.selectedCell
+                    : ""
+                }`}
+                onClick={() => setSelectedNFT(nft)}
+              >
+                <Image
+                  src={nft.imageUrl}
+                  alt={nft.name}
+                  className={styles.NFTImage}
+                />
+                <VStack className={styles.NFTListCellNameContainer}>
+                  <Text className={styles.NFTName}>{nft.name}</Text>
+                  <Text className={styles.NFTCollectionName}>
+                    {nft.collection}
+                  </Text>
+                </VStack>
+                <VStack className={styles.NFTListCellFooter}>
+                  <Text
+                    className={styles.NFTTokenID}
+                  >{`ID: ${nft.tokenId}`}</Text>
+                </VStack>
+              </VStack>
+            ))}
+          </SimpleGrid>
+        </VStack>
+      </VStack>
+      {isSuccess ? (
+        <SuccessContainer />
+      ) : !selectedNFT ? (
+        <OverviewNFTContainer data={dummyData} />
+      ) : (
+        <NFTDetailContainer
+          // setIsSuccess={setIsSuccess}
+          nft={selectedNFT}
+        />
+      )}
+    </HStack>
+  );
+};
+
+type NFTDetailContainerProps = {
+  nft: any;
+  setIsSuccess?: (isSuccess: boolean) => void;
+};
+
+const NFTDetailContainer = ({ nft, setIsSuccess }: NFTDetailContainerProps) => {
+  return (
+    <VStack className={styles.NFTdetailContainer}>
+      <HStack className={styles.detailContainerTitleBox}>
+        <Text className={styles.detailContainerTitle}>{nft.name}</Text>
+        <HStack className={styles.NFTdetailbuttonContainer}>
+          <Button className={styles.NFTdetailButton}>
+            <RepeatIcon color="white" w="1.5rem" h="1.5rem" />
+          </Button>
+          <Button className={styles.NFTdetailButton}>
+            <FaRegPaperPlane color="white" size="1.5rem" />
+          </Button>
+          <Button className={styles.NFTdetailButton}>
+            <FaBinoculars color="white" size="1.5rem" />
+          </Button>
+        </HStack>
+      </HStack>
+      <VStack className={styles.NFTcontentContainer} gap={7}>
+        <Image
+          src={nft.imageUrl}
+          alt={nft.name}
+          className={styles.NFTdetailImage}
+        ></Image>
+        <VStack className={styles.NFTdetailTextContainer} gap={3}>
+          <HStack className={styles.NFTdetailTextSubcontainer}>
+            <Text className={styles.NFTdetailTitle}>Collection</Text>
+            <Text className={styles.NFTdetailSubtitle}>{nft.collection}</Text>
           </HStack>
-        ))}
+          <HStack className={styles.NFTdetailTextSubcontainer}>
+            <Text className={styles.NFTdetailTitle}>Token ID</Text>
+            <Text className={styles.NFTdetailSubtitle}>{nft.tokenId}</Text>
+          </HStack>
+          <VStack className={styles.NFTdetailDescriptionContainer}>
+            <Text className={styles.NFTdetailTitle}>Description</Text>
+            <Text className={styles.NFTdetailSubtitle}>{nft.description}</Text>
+          </VStack>
+        </VStack>
       </VStack>
     </VStack>
   );
 };
 
 type SendTokenContainerProps = {
-  tokenName: string;
+  nftName: string;
   setIsSuccess: (isSuccess: boolean) => void;
 };
 
-const SendTokenContainer = ({
-  tokenName,
+const SendNFTContainer = ({
+  nftName,
   setIsSuccess,
 }: SendTokenContainerProps) => {
   return (
-    <VStack className={styles.detailContainer}>
+    <VStack className={styles.NFTdetailContainer}>
       <Box className={styles.detailContainerTitleBox}>
-        <Text
-          className={styles.detailContainerTitle}
-        >{`Send ${tokenName}`}</Text>
+        <Text className={styles.detailContainerTitle}>{`Send ${nftName}`}</Text>
       </Box>
       <VStack className={styles.sendTokenContentContainer} gap={7}>
         <HStack className={styles.sendTokenInputContainer}>

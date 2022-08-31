@@ -242,6 +242,8 @@
   background: rgba(35, 35, 35, 0.5) !important;
 }
 
+/* TOKEN CONTAINER */
+
 .tokenContainer {
   width: 446px;
   height: 587px;
@@ -286,6 +288,10 @@
   border-radius: 5px;
 }
 
+.tokenListCell:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
 .selectedCell {
   background: rgba(255, 255, 255, 0.05);
 }
@@ -321,6 +327,97 @@
   margin: 0 !important;
 }
 
+/* NFT CONTAINER */
+
+.NFTContainer {
+  width: 594px;
+  height: 587px;
+
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+
+  padding: 1.5rem 1rem;
+}
+
+.NFTListCellContainer {
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.NFTListCell {
+  width: 100%;
+  display: flex;
+  justify-content: space-between !important;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: 0.1s ease-in-out;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+
+.NFTListCell:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.selectedCell {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.NFTName {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.NFTListCellNameContainer {
+  width: 100%;
+  display: flex;
+  align-items: flex-start !important;
+  padding: 0 0.5rem;
+}
+
+.NFTListCellFooter {
+  width: 100%;
+  display: flex;
+  align-items: flex-end !important;
+  padding: 0 0.5rem;
+}
+
+.NFTImage {
+  width: 150px;
+  height: 150px;
+}
+
+.NFTCollectionName {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.NFTTokenID {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* DETAIL CONTAINER */
+
 .detailContainer {
   width: 697px;
   height: 587px;
@@ -331,11 +428,103 @@
   padding: 1.5rem 1rem;
 }
 
-.detailContainerTitleBox {
+.NFTdetailContainer {
+  width: 552px;
+  height: 587px;
+
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+
+  padding: 1.5rem 1rem;
+
+  overflow-y: scroll;
+}
+
+.NFTdetailbuttonContainer {
+  width: 40%;
+  justify-content: flex-end !important;
+  gap: 0.5rem;
+}
+
+.NFTdetailButton {
+  width: 60px !important;
+  height: 60px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+
+  background: #1f1f1f !important;
+  border-radius: 50% !important;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+
+  color: white;
+  opacity: 0.8;
+  transition: 0.2 ease-in-out;
+}
+
+.NFTdetailButton:hover {
+  opacity: 1;
+}
+
+.NFTdetailImage {
+  width: 274px;
+  height: 274px;
+
+  border-radius: 10px;
+}
+
+.NFTdetailTextContainer {
+  width: 100%;
+  display: flex;
+  padding: 0 2rem;
+}
+
+.NFTdetailTextSubcontainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between !important;
+}
+
+.NFTdetailDescriptionContainer {
   width: 100%;
   display: flex;
   justify-content: flex-start !important;
-  padding-left: 1rem;
+  align-items: flex-start !important;
+}
+
+.NFTdetailTitle {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.NFTdetailSubtitle {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.NFTcontentContainer {
+  padding: 1rem;
+  width: 100%;
+  color: white;
+  justify-content: center;
+  align-items: center;
+}
+
+.detailContainerTitleBox {
+  width: 100%;
+  display: flex;
+  justify-content: space-between !important;
+  padding: 0 1rem;
 }
 
 .detailContainerTitle {
@@ -353,6 +542,7 @@
   color: white;
   height: 300px;
   overflow-y: scroll;
+  align-items: flex-start !important;
 }
 
 .scoreContainer {
@@ -376,6 +566,15 @@
   border-radius: 5px;
 }
 
+.NFTscoreBarContainer {
+  position: relative;
+  width: 300px;
+  height: 10px;
+
+  background: rgba(217, 217, 217, 0.59);
+  border-radius: 5px;
+}
+
 .scoreBar {
   position: absolute;
   width: 75%;
@@ -383,6 +582,15 @@
 
   border-radius: 10px;
   background: #e38627;
+}
+
+.scoreTitleLabel {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  width: 6rem;
 }
 
 .scoreLabel {
@@ -587,11 +795,11 @@
 
 .sentContainerLottie {
   position: absolute;
-  top: -50px;
+  top: -70px;
 }
 
 .sentContainerTextContainer {
-  padding-top: 300px;
+  padding-top: 280px;
 }
 
 .sentContainerTitle {
@@ -611,7 +819,7 @@
 
   opacity: 0.6;
 
-  padding-bottom: 2rem;
+  padding-bottom: 3rem;
 }
 
 .sentContainerFooter {
