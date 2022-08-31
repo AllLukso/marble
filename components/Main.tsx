@@ -9,8 +9,22 @@ import {
   Input,
   Switch,
   SimpleGrid,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionIcon,
+  AccordionPanel,
 } from "@chakra-ui/react";
-import { CopyIcon, RepeatIcon } from "@chakra-ui/icons";
+import {
+  AddIcon,
+  ArrowDownIcon,
+  ArrowForwardIcon,
+  ArrowUpIcon,
+  BellIcon,
+  CopyIcon,
+  DownloadIcon,
+  RepeatIcon,
+} from "@chakra-ui/icons";
 import { ArrowUpDownIcon } from "@chakra-ui/icons";
 import { FaGithub, FaRegPaperPlane, FaBinoculars } from "react-icons/fa";
 import PieChart from "@components/PieChart";
@@ -21,13 +35,19 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { dummyData } from "@data/crypto";
 import { dummyData as NFTData } from "@data/nft";
+import { dummyData as VaultData } from "@data/vault";
 
 import SuccessContainer from "@components/Success";
 import {
   OverviewCryptoContainer,
   OverviewNFTContainer,
+  OverviewVaultContainer,
 } from "@components/Overview";
+import SidebarContainer from "@components/Sidebar";
 import CryptoContainer from "@components/Crypto";
+import NFTContainer from "@components/NFT";
+import BalanceContainer from "@components/Balance";
+import { abridgeAddress, abridgeMessage } from "@utils/index";
 
 const Main = () => {
   const router = useRouter();
@@ -40,6 +60,8 @@ const Main = () => {
         return <CryptoContainer />;
       case "/#nft":
         return <NFTContainer />;
+      case "/#vault":
+        return <VaultContainer />;
       default:
         return <CryptoContainer />;
     }
@@ -58,142 +80,47 @@ const Main = () => {
   );
 };
 
-const BalanceContainer = () => {
-  return (
-    <HStack className={styles.balanceContainer}>
-      <VStack className={styles.balanceContainerLeftSection}>
-        <Text className={styles.balanceContainerTitle}>Your Total Balance</Text>
-        <Text className={styles.balanceContainerBalance}>$12,891.90</Text>
-      </VStack>
-      <VStack className={styles.balanceContainerRightSection}>
-        <HStack>
-          <CopyIcon color="white" />
-          <Text className={styles.balanceContainerAddress}>0x2dA9...796e</Text>
-        </HStack>
-        <HStack className={styles.balanceContainerButtonList}>
-          <Button className={styles.balanceContainerButton}>
-            <FaGithub color="white" />
-            <Text className={styles.balanceContainerButtonText}>Buy</Text>
-          </Button>
-          <Button className={styles.balanceContainerButton}>
-            <FaGithub color="white" />
-            <Text className={styles.balanceContainerButtonText}>Send</Text>
-          </Button>
-          <Button className={styles.balanceContainerButton}>
-            <FaGithub color="white" />
-            <Text className={styles.balanceContainerButtonText}>Swap</Text>
-          </Button>
-        </HStack>
-      </VStack>
-    </HStack>
-  );
-};
-
-const SidebarContainer = () => {
-  return (
-    <VStack className={styles.sidebarContainer}>
-      <VStack>
-        <Box className={styles.profileContainer}>
-          <Box className={styles.coverImageOverlay}></Box>
-          <Image
-            src="/cover.png"
-            alt="cover image"
-            className={styles.coverImage}
-          ></Image>
-          <VStack className={styles.profileContentContainer}>
-            <Image
-              src="/profile.png"
-              alt="cover image"
-              className={styles.profileImage}
-            ></Image>
-            <HStack className={styles.profileNameContainer}>
-              <Text className={styles.profileUsername}>iamminci</Text>
-              <Text className={styles.profileUserhash}>#4229</Text>
-            </HStack>
-          </VStack>
-        </Box>
-      </VStack>
-      <VStack className={styles.sidebarTabListContainer}>
-        <Link href="/#crypto">
-          <HStack className={styles.sidebarTabContainer}>
-            <FaGithub color="white" />
-            <Text className={styles.sidebarTabTitle}>Crypto</Text>
-          </HStack>
-        </Link>
-        <Link href="/#nft">
-          <HStack className={styles.sidebarTabContainer}>
-            <FaGithub color="white" />
-            <Text className={styles.sidebarTabTitle}>NFTs</Text>
-          </HStack>
-        </Link>
-        <Link href="/#vault">
-          <HStack className={styles.sidebarTabContainer}>
-            <FaGithub color="white" />
-            <Text className={styles.sidebarTabTitle}>Vaults</Text>
-          </HStack>
-        </Link>
-        <Link href="/#staking">
-          <HStack className={styles.sidebarTabContainer}>
-            <FaGithub color="white" />
-            <Text className={styles.sidebarTabTitle}>Staking</Text>
-          </HStack>
-        </Link>
-        <Link href="/#governance">
-          <HStack className={styles.sidebarTabContainer}>
-            <FaGithub color="white" />
-            <Text className={styles.sidebarTabTitle}>Governance</Text>
-          </HStack>
-        </Link>
-        <Link href="/#settings">
-          <HStack className={styles.sidebarTabContainer}>
-            <FaGithub color="white" />
-            <Text className={styles.sidebarTabTitle}>Settings</Text>
-          </HStack>
-        </Link>
-      </VStack>
-      <Text className={styles.sidebarFooter}>Made with ❤️ by @iamminci</Text>
-    </VStack>
-  );
-};
-
-const NFTContainer = () => {
-  const [selectedNFT, setSelectedNFT] = useState<any>(null);
+const VaultContainer = () => {
+  const [selectedVault, setSelectedVault] = useState<any>(null);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isSend, setIsSend] = useState(false);
 
   return (
     <HStack className={styles.cryptoContainer} gap={2}>
-      <VStack className={styles.NFTContainer}>
-        <Box className={styles.tokenContainerTitleBox}>
-          <Text className={styles.tokenContainerTitle}>NFTs</Text>
+      <VStack className={styles.VaultContainer}>
+        <Box className={styles.VaultContainerTitleBox}>
+          <Text className={styles.tokenContainerTitle}>Vaults</Text>
+          <HStack className={styles.VaultButtonContainer}>
+            <Button className={styles.VaultButton}>
+              <AddIcon color="white" w="1.5rem" h="1.5rem" />
+            </Button>
+            <Button className={styles.VaultButton}>
+              <BellIcon color="white" w="1.5rem" h="1.5rem" />
+            </Button>
+          </HStack>
         </Box>
         <VStack className={styles.tokenListCellContainer}>
-          <SimpleGrid columns={3} spacing={0}>
-            {NFTData.map((nft, idx) => (
+          <SimpleGrid columns={2} spacing={0}>
+            {VaultData.map((vault, idx) => (
               <VStack
                 key={idx}
-                className={`${styles.NFTListCell} ${
-                  selectedNFT && selectedNFT.id === nft.id
+                className={`${styles.VaultListCell} ${
+                  selectedVault && selectedVault.id === vault.id
                     ? styles.selectedCell
                     : ""
                 }`}
-                onClick={() => setSelectedNFT(nft)}
+                onClick={() => setSelectedVault(vault)}
               >
                 <Image
-                  src={nft.imageUrl}
-                  alt={nft.name}
-                  className={styles.NFTImage}
+                  src={vault.imageUrl}
+                  alt={vault.name}
+                  className={styles.VaultImage}
                 />
                 <VStack className={styles.NFTListCellNameContainer}>
-                  <Text className={styles.NFTName}>{nft.name}</Text>
+                  <Text className={styles.NFTName}>{vault.name}</Text>
                   <Text className={styles.NFTCollectionName}>
-                    {nft.collection}
+                    {abridgeMessage(vault.description, 15)}
                   </Text>
-                </VStack>
-                <VStack className={styles.NFTListCellFooter}>
-                  <Text
-                    className={styles.NFTTokenID}
-                  >{`ID: ${nft.tokenId}`}</Text>
                 </VStack>
               </VStack>
             ))}
@@ -201,31 +128,37 @@ const NFTContainer = () => {
         </VStack>
       </VStack>
       {isSuccess ? (
-        <SuccessContainer isNFT label={selectedNFT.name} />
-      ) : !selectedNFT ? (
-        <OverviewNFTContainer data={dummyData} />
+        <SuccessContainer isNFT label={selectedVault.name} />
+      ) : !selectedVault ? (
+        <OverviewVaultContainer data={VaultData} />
       ) : !isSend ? (
-        <NFTDetailContainer setIsSend={setIsSend} nft={selectedNFT} />
+        <VaultDetailContainer setIsSend={setIsSend} vault={selectedVault} />
       ) : (
-        <SendNFTContainer setIsSuccess={setIsSuccess} nft={selectedNFT} />
+        <SendNFTContainer setIsSuccess={setIsSuccess} vault={selectedVault} />
       )}
     </HStack>
   );
 };
 
-type NFTDetailContainerProps = {
+type VaultDetailContainerProps = {
   setIsSend: (isSend: boolean) => void;
-  nft: any;
+  vault: any;
 };
 
-const NFTDetailContainer = ({ nft, setIsSend }: NFTDetailContainerProps) => {
+const VaultDetailContainer = ({
+  vault,
+  setIsSend,
+}: VaultDetailContainerProps) => {
   return (
-    <VStack className={styles.NFTdetailContainer}>
+    <VStack className={styles.VaultDetailContainer}>
       <HStack className={styles.detailContainerTitleBox}>
-        <Text className={styles.detailContainerTitle}>{nft.name}</Text>
-        <HStack className={styles.NFTdetailbuttonContainer}>
+        <Text className={styles.detailContainerTitle}>{vault.name}</Text>
+        <HStack className={styles.VaultDetailbuttonContainer}>
           <Button className={styles.NFTdetailButton}>
-            <RepeatIcon color="white" w="1.5rem" h="1.5rem" />
+            <ArrowDownIcon color="white" w="1.5rem" h="1.5rem" />
+          </Button>
+          <Button className={styles.NFTdetailButton}>
+            <ArrowUpIcon color="white" w="1.5rem" h="1.5rem" />
           </Button>
           <Button
             className={styles.NFTdetailButton}
@@ -239,24 +172,124 @@ const NFTDetailContainer = ({ nft, setIsSend }: NFTDetailContainerProps) => {
         </HStack>
       </HStack>
       <VStack className={styles.NFTcontentContainer} gap={7}>
-        <Image
-          src={nft.imageUrl}
-          alt={nft.name}
-          className={styles.NFTdetailImage}
-        ></Image>
-        <VStack className={styles.NFTdetailTextContainer} gap={3}>
-          <HStack className={styles.NFTdetailTextSubcontainer}>
-            <Text className={styles.NFTdetailTitle}>Collection</Text>
-            <Text className={styles.NFTdetailSubtitle}>{nft.collection}</Text>
-          </HStack>
-          <HStack className={styles.NFTdetailTextSubcontainer}>
-            <Text className={styles.NFTdetailTitle}>Token ID</Text>
-            <Text className={styles.NFTdetailSubtitle}>{nft.tokenId}</Text>
-          </HStack>
-          <VStack className={styles.NFTdetailDescriptionContainer}>
-            <Text className={styles.NFTdetailTitle}>Description</Text>
-            <Text className={styles.NFTdetailSubtitle}>{nft.description}</Text>
+        <HStack>
+          <VStack className={styles.vaultDetailContentContainer}>
+            <Text className={styles.vaultBalanceLabel}>Vault Balance</Text>
+            <Text className={styles.vaultBalanceAmount}>$100.00</Text>
+            <Text className={styles.vaultDetailSubtitle}>
+              {vault.description}
+            </Text>
           </VStack>
+          <Image
+            src={vault.imageUrl}
+            alt={vault.name}
+            className={styles.NFTdetailImage}
+          ></Image>
+        </HStack>
+        <VStack className={styles.VaultDetailTextContainer} gap={3}>
+          <Accordion allowMultiple className={styles.accordion}>
+            <AccordionItem className={styles.accordionItem}>
+              <h2>
+                <AccordionButton className={styles.accordionButton}>
+                  <HStack flex="1">
+                    <Text className={styles.NFTdetailTitle}>Tokens</Text>
+                    <Text className={styles.NFTdetailSubtitle}>
+                      {vault.crypto.length}
+                    </Text>
+                  </HStack>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                {vault.crypto.map((token, idx) => (
+                  <HStack key={idx} className={styles.vaultTokenListCell}>
+                    <HStack className={styles.tokenListCellLeftSection}>
+                      <Image
+                        src={token.imageUrl}
+                        alt={token.name}
+                        className={styles.tokenImage}
+                      />
+                      <Text className={styles.tokenName}>{token.name}</Text>
+                    </HStack>
+                    <VStack className={styles.tokenListCellRightSection}>
+                      <Text className={styles.tokenFiatBalance}>
+                        {token.balance}
+                      </Text>
+                      <Text
+                        className={styles.tokenCryptoBalance}
+                      >{`${token.balance}${token.symbol}`}</Text>
+                    </VStack>
+                  </HStack>
+                ))}
+              </AccordionPanel>
+            </AccordionItem>
+
+            <AccordionItem className={styles.accordionItem}>
+              <h2>
+                <AccordionButton className={styles.accordionButton}>
+                  <HStack flex="1">
+                    <Text className={styles.NFTdetailTitle}>NFTs</Text>
+                    <Text className={styles.NFTdetailSubtitle}>
+                      {vault.nft.length}
+                    </Text>
+                  </HStack>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <SimpleGrid columns={3} spacing={0}>
+                  {NFTData.map((nft, idx) => (
+                    <VStack key={idx} className={styles.VaultNFTListCell}>
+                      <Image
+                        src={nft.imageUrl}
+                        alt={nft.name}
+                        className={styles.NFTImage}
+                      />
+                      <VStack className={styles.NFTListCellNameContainer}>
+                        <Text className={styles.NFTName}>{nft.name}</Text>
+                        <Text className={styles.NFTCollectionName}>
+                          {nft.collection}
+                        </Text>
+                      </VStack>
+                      <VStack className={styles.NFTListCellFooter}>
+                        <Text
+                          className={styles.NFTTokenID}
+                        >{`ID: ${nft.tokenId}`}</Text>
+                      </VStack>
+                    </VStack>
+                  ))}
+                </SimpleGrid>
+              </AccordionPanel>
+            </AccordionItem>
+            <AccordionItem className={styles.accordionItem}>
+              <h2>
+                <AccordionButton className={styles.accordionButton}>
+                  <HStack flex="1">
+                    <Text className={styles.NFTdetailTitle}>Permissions</Text>
+                    <Text className={styles.NFTdetailSubtitle}>
+                      {vault.permissions.length}
+                    </Text>
+                  </HStack>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                {vault.permissions.map((permission, idx) => (
+                  <HStack
+                    key={idx}
+                    className={styles.vaultPermissionsContainer}
+                  >
+                    <Text className={styles.vaultPermissionTitle}>
+                      {abridgeAddress(permission.address)}
+                    </Text>
+                    <Text className={styles.vaultPermissionSubtitle}>
+                      {permission.access}
+                    </Text>
+                  </HStack>
+                ))}
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
         </VStack>
       </VStack>
     </VStack>

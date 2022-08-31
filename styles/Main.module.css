@@ -277,6 +277,17 @@
   overflow-y: scroll;
 }
 
+.vaultTokenListCell {
+  width: 100%;
+  display: flex;
+  justify-content: space-between !important;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: 0.1s ease-in-out;
+  border-radius: 5px;
+}
+
 .tokenListCell {
   width: 100%;
   display: flex;
@@ -342,6 +353,17 @@
 .NFTListCellContainer {
   width: 100%;
   overflow-y: scroll;
+}
+
+.VaultNFTListCell {
+  width: 100%;
+  display: flex;
+  justify-content: space-between !important;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: 0.1s ease-in-out;
+  border-radius: 5px;
+  padding: 0.5rem;
 }
 
 .NFTListCell {
@@ -414,6 +436,251 @@
   line-height: 15px;
   padding: 0 !important;
   margin: 0 !important;
+}
+
+/* Vault CONTAINER */
+
+.VaultContainer {
+  width: 500px;
+  height: 587px;
+
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+
+  padding: 1.5rem 1rem;
+}
+
+.VaultContainerTitleBox {
+  width: 100%;
+  display: flex;
+  justify-content: space-between !important;
+  align-items: center;
+  padding-left: 1rem;
+}
+
+.NFTListCellContainer {
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.VaultListCell {
+  width: 100%;
+  display: flex;
+  justify-content: space-between !important;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: 0.1s ease-in-out;
+  border-radius: 5px;
+  padding: 1rem;
+}
+
+.VaultListCell:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.selectedCell {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.NFTName {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.NFTListCellNameContainer {
+  width: 100%;
+  display: flex;
+  align-items: flex-start !important;
+  padding: 0 0.5rem;
+}
+
+.NFTListCellFooter {
+  width: 100%;
+  display: flex;
+  align-items: flex-end !important;
+  padding: 0 0.5rem;
+}
+
+.VaultImage {
+  width: 200px;
+  height: 200px;
+}
+
+.NFTCollectionName {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.NFTTokenID {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.VaultButtonContainer {
+  width: 40%;
+  justify-content: flex-end !important;
+  gap: 0.5rem;
+}
+
+.VaultButton {
+  width: 60px !important;
+  height: 60px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+
+  background: #1f1f1f !important;
+  border-radius: 50% !important;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+
+  color: white;
+  opacity: 0.8;
+  transition: 0.2 ease-in-out;
+}
+
+.VaultButton:hover {
+  opacity: 1;
+}
+
+.VaultDetailContainer {
+  width: 611px;
+  height: 587px;
+
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+
+  padding: 1.5rem 1rem;
+
+  overflow-y: scroll;
+}
+
+.VaultDetailbuttonContainer {
+  width: 50%;
+  justify-content: flex-end !important;
+  gap: 0.5rem;
+}
+
+.vaultDetailContentContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+  padding-right: 1rem;
+}
+
+.vaultScoreTitleLabel {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  width: 8rem;
+}
+
+.vaultBalanceLabel {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.vaultBalanceAmount {
+  font-family: "Lexend Mega";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 60px;
+  /* identical to box height */
+
+  letter-spacing: -0.1em;
+}
+
+.vaultDetailTitle {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.vaultDetailSubtitle {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.VaultDetailTextContainer {
+  width: 100%;
+  display: flex;
+}
+
+.VaultDetailTextSubcontainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between !important;
+}
+
+.accordion {
+  width: 100%;
+}
+
+.accordionItem {
+  border: none !important;
+}
+
+.accordionButton {
+  padding: 0.6rem 0 !important;
+}
+
+.vaultPermissionTitle {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.vaultPermissionSubtitle {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: right;
+}
+
+.vaultPermissionsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between !important;
+  padding: 0.5rem 0;
 }
 
 /* DETAIL CONTAINER */

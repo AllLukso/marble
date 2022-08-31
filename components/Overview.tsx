@@ -61,3 +61,31 @@ export const OverviewNFTContainer = ({ data }: OverviewContainerProps) => {
     </VStack>
   );
 };
+
+export const OverviewVaultContainer = ({ data }: OverviewContainerProps) => {
+  return (
+    <VStack className={styles.VaultDetailContainer}>
+      <Box className={styles.detailContainerTitleBox}>
+        <Text className={styles.detailContainerTitle}>Overview</Text>
+      </Box>
+      <PieChart
+        data={[
+          { title: "One", value: 10, color: "#E38627" },
+          { title: "Two", value: 15, color: "#C13C37" },
+          { title: "Three", value: 20, color: "#6A2135" },
+        ]}
+      />
+      <VStack className={styles.scoreListContainer}>
+        {data.map(({ name, balance }, idx) => (
+          <HStack key={idx} className={styles.scoreContainer}>
+            <Text className={styles.vaultScoreTitleLabel}>{name}</Text>
+            <Box className={`${styles.NFTscoreBarContainer}`}>
+              <Box className={`${styles.scoreBar}`}></Box>
+            </Box>
+            <Text className={styles.scoreLabel}>8.6</Text>
+          </HStack>
+        ))}
+      </VStack>
+    </VStack>
+  );
+};
