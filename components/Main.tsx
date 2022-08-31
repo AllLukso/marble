@@ -14,6 +14,7 @@ import { ArrowUpDownIcon } from "@chakra-ui/icons";
 import { FaGithub } from "react-icons/fa";
 import PieChart from "@components/PieChart";
 import { useState } from "react";
+import SuccessLottie from "@components/SuccessLottie";
 
 const dummyData = [
   {
@@ -76,6 +77,7 @@ const dummyData = [
 
 const Main = () => {
   const [selectedToken, setSelectedToken] = useState<any>(null);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   return (
     <div className={styles.container}>
@@ -203,15 +205,42 @@ const Main = () => {
                 ))}
               </VStack>
             </VStack>
-            {!selectedToken ? (
+            {true ? (
+              <SuccessContainer />
+            ) : !selectedToken ? (
               <OverviewContainer />
             ) : (
-              <SendTokenContainer tokenName={selectedToken.name} />
+              <SendTokenContainer
+                setIsSuccess={setIsSuccess}
+                tokenName={selectedToken.name}
+              />
             )}
           </HStack>
         </VStack>
       </HStack>
     </div>
+  );
+};
+
+const SuccessContainer = () => {
+  return (
+    <VStack className={styles.detailContainer}>
+      <Box className={styles.detailContainerTitleBox}>
+        <Text className={styles.detailContainerTitle}>Overview</Text>
+      </Box>
+      <VStack className={styles.sentContainer}>
+        <VStack className={styles.sentContainerLottie}>
+          <SuccessLottie />
+        </VStack>
+        <VStack className={styles.sentContainerTextContainer}>
+          <Text className={styles.sentContainerTitle}>Successfully Sent!</Text>
+          <Text className={styles.sentContainerSubtitle}>1 LYX.t</Text>
+          <Text className={styles.sentContainerFooter}>
+            It may take up to ~2 min for the transaction to complete
+          </Text>
+        </VStack>
+      </VStack>
+    </VStack>
   );
 };
 
@@ -245,9 +274,13 @@ const OverviewContainer = () => {
 
 type SendTokenContainerProps = {
   tokenName: string;
+  setIsSuccess: (isSuccess: boolean) => void;
 };
 
-const SendTokenContainer = ({ tokenName }: SendTokenContainerProps) => {
+const SendTokenContainer = ({
+  tokenName,
+  setIsSuccess,
+}: SendTokenContainerProps) => {
   return (
     <VStack className={styles.detailContainer}>
       <Box className={styles.detailContainerTitleBox}>
@@ -283,7 +316,12 @@ const SendTokenContainer = ({ tokenName }: SendTokenContainerProps) => {
         </HStack>
         <HStack className={styles.buttonContainer}>
           <Button className={styles.cancelButton}>Cancel</Button>
-          <Button className={styles.sendButton}>Send</Button>
+          <Button
+            className={styles.sendButton}
+            onClick={() => setIsSuccess(true)}
+          >
+            Send
+          </Button>
         </HStack>
       </VStack>
     </VStack>
