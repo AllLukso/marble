@@ -8,6 +8,7 @@ import {
   Image,
   Input,
   Switch,
+  Select,
   SimpleGrid,
   Accordion,
   AccordionItem,
@@ -70,7 +71,7 @@ const Main = () => {
   return (
     <div className={styles.container}>
       <HStack className={styles.contentContainer} gap={2}>
-        <SidebarContainer />
+        <SidebarContainer selected={router.asPath} />
         <VStack className={styles.mainContainer} gap={2}>
           <BalanceContainer />
           {getContent()}
@@ -83,7 +84,10 @@ const Main = () => {
 const VaultContainer = () => {
   const [selectedVault, setSelectedVault] = useState<any>(null);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [isSend, setIsSend] = useState(false);
+  const [isCreate, setIsCreate] = useState(false);
+  const [isDeposit, setIsDeposit] = useState(false);
+  const [isWithdraw, setIsWithdraw] = useState(false);
+  const [isTransfer, setIsTransfer] = useState(false);
 
   return (
     <HStack className={styles.cryptoContainer} gap={2}>
@@ -91,7 +95,10 @@ const VaultContainer = () => {
         <Box className={styles.VaultContainerTitleBox}>
           <Text className={styles.tokenContainerTitle}>Vaults</Text>
           <HStack className={styles.VaultButtonContainer}>
-            <Button className={styles.VaultButton}>
+            <Button
+              className={styles.VaultButton}
+              onClick={() => setIsCreate(true)}
+            >
               <AddIcon color="white" w="1.5rem" h="1.5rem" />
             </Button>
             <Button className={styles.VaultButton}>
@@ -128,41 +135,247 @@ const VaultContainer = () => {
         </VStack>
       </VStack>
       {isSuccess ? (
-        <SuccessContainer isNFT label={selectedVault.name} />
+        <SuccessContainer type="vault" label={"TODO: New Vault Name"} />
+      ) : isCreate ? (
+        <CreateVaultContainer setIsSuccess={setIsSuccess} />
+      ) : isWithdraw ? (
+        <WithdrawVaultContainer
+          vault={selectedVault}
+          setIsSuccess={setIsSuccess}
+        />
+      ) : isDeposit ? (
+        <DepositVaultContainer
+          vault={selectedVault}
+          setIsSuccess={setIsSuccess}
+        />
       ) : !selectedVault ? (
         <OverviewVaultContainer data={VaultData} />
-      ) : !isSend ? (
-        <VaultDetailContainer setIsSend={setIsSend} vault={selectedVault} />
+      ) : !isTransfer ? (
+        <VaultDetailContainer
+          setIsDeposit={setIsDeposit}
+          setIsWithdraw={setIsWithdraw}
+          setIsTransfer={setIsTransfer}
+          vault={selectedVault}
+        />
       ) : (
-        <SendNFTContainer setIsSuccess={setIsSuccess} vault={selectedVault} />
+        <TransferVaultContainer
+          setIsSuccess={setIsSuccess}
+          vault={selectedVault}
+        />
       )}
     </HStack>
   );
 };
 
+type TransferVaultContainerProps = {
+  vault: any;
+  setIsSuccess: (isSuccess: boolean) => void;
+};
+
+const TransferVaultContainer = ({
+  vault,
+  setIsSuccess,
+}: TransferVaultContainerProps) => {
+  return (
+    <VStack className={styles.VaultDetailContainer}>
+      <Box className={styles.detailContainerTitleBox}>
+        <Text
+          className={styles.detailContainerTitle}
+        >{`Transfer Ownership of ${vault.name}`}</Text>
+      </Box>
+      <VStack className={styles.sendNFTContentContainer} gap={1}>
+        <Image
+          src={vault.imageUrl}
+          alt={vault.name}
+          className={styles.vaultTransferDetailImage}
+        ></Image>
+        <VStack className={styles.vaultRecipientContainer}>
+          <Text className={styles.NFTrecipientLabel}>Recipient</Text>
+          <Input
+            placeholder="Enter Address"
+            className={styles.NFTaddressInput}
+          />
+        </VStack>
+        <Text className={styles.vaultTransferText}>
+          * Please note: Transfer of vault ownership will be completed once the
+          recipient address claims ownership of the vault.
+        </Text>
+        <HStack className={styles.buttonContainer}>
+          <Button className={styles.cancelButton}>Cancel</Button>
+          <Button
+            className={styles.sendButton}
+            onClick={() => setIsSuccess(true)}
+          >
+            Transfer
+          </Button>
+        </HStack>
+      </VStack>
+    </VStack>
+  );
+};
+type WithdrawVaultContainerProps = {
+  vault: any;
+  setIsSuccess: (isSuccess: boolean) => void;
+};
+
+const WithdrawVaultContainer = ({
+  vault,
+  setIsSuccess,
+}: WithdrawVaultContainerProps) => {
+  const [isNFT, setIsNFT] = useState(false);
+
+  return (
+    <VStack className={styles.VaultDetailContainer}>
+      <Box className={styles.detailContainerTitleBox}>
+        <Text
+          className={styles.detailContainerTitle}
+        >{`Withdraw from ${vault.name}`}</Text>
+      </Box>
+      <VStack className={styles.sendTokenContentContainer} gap={10}>
+        {!isNFT ? (
+          <HStack className={styles.depositTokenContainer}>
+            <Button className={styles.sendTokenMaxButton}>
+              <Text>MAX</Text>
+            </Button>
+            <Input placeholder="$0" className={styles.amountInput} />
+            <Button className={styles.sendTokenMaxButton}>
+              <ArrowUpDownIcon color="white" w="20px" h="20px" />
+            </Button>
+          </HStack>
+        ) : (
+          <HStack className={styles.depositTokenContainer}>
+            <Image
+              src={"/1.png"}
+              alt={"testing"}
+              className={styles.NFTdetailImage}
+            ></Image>
+          </HStack>
+        )}
+        <VStack className={styles.selectTokenContainer}>
+          <Text className={styles.recipientLabel}>Recipient</Text>
+          <Select
+            placeholder="Select Token or NFT"
+            className={styles.addressInput}
+            onChange={(e: any) => setIsNFT(e.target.value === "NFT")}
+          >
+            <option value="crypto">Option 1</option>
+            <option value="crypto">Option 2</option>
+            <option value="NFT">Option 3</option>
+          </Select>
+        </VStack>
+
+        <HStack className={styles.buttonContainer}>
+          <Button className={styles.cancelButton}>Cancel</Button>
+          <Button
+            className={styles.sendButton}
+            onClick={() => setIsSuccess(true)}
+          >
+            Withdraw
+          </Button>
+        </HStack>
+      </VStack>
+    </VStack>
+  );
+};
+
+type DepositVaultContainerProps = {
+  vault: any;
+  setIsSuccess: (isSuccess: boolean) => void;
+};
+
+const DepositVaultContainer = ({
+  vault,
+  setIsSuccess,
+}: DepositVaultContainerProps) => {
+  const [isNFT, setIsNFT] = useState(false);
+
+  return (
+    <VStack className={styles.VaultDetailContainer}>
+      <Box className={styles.detailContainerTitleBox}>
+        <Text
+          className={styles.detailContainerTitle}
+        >{`Deposit into ${vault.name}`}</Text>
+      </Box>
+      <VStack className={styles.sendTokenContentContainer} gap={10}>
+        {!isNFT ? (
+          <HStack className={styles.depositTokenContainer}>
+            <Button className={styles.sendTokenMaxButton}>
+              <Text>MAX</Text>
+            </Button>
+            <Input placeholder="$0" className={styles.amountInput} />
+            <Button className={styles.sendTokenMaxButton}>
+              <ArrowUpDownIcon color="white" w="20px" h="20px" />
+            </Button>
+          </HStack>
+        ) : (
+          <HStack className={styles.depositTokenContainer}>
+            <Image
+              src={"/1.png"}
+              alt={"testing"}
+              className={styles.NFTdetailImage}
+            ></Image>
+          </HStack>
+        )}
+        <VStack className={styles.selectTokenContainer}>
+          <Text className={styles.recipientLabel}>Recipient</Text>
+          <Select
+            placeholder="Select Token or NFT"
+            className={styles.addressInput}
+            onChange={(e: any) => setIsNFT(e.target.value === "NFT")}
+          >
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="NFT">Option 3</option>
+          </Select>
+        </VStack>
+
+        <HStack className={styles.buttonContainer}>
+          <Button className={styles.cancelButton}>Cancel</Button>
+          <Button
+            className={styles.sendButton}
+            onClick={() => setIsSuccess(true)}
+          >
+            Deposit
+          </Button>
+        </HStack>
+      </VStack>
+    </VStack>
+  );
+};
+
 type VaultDetailContainerProps = {
-  setIsSend: (isSend: boolean) => void;
+  setIsWithdraw: (isWithdraw: boolean) => void;
+  setIsDeposit: (isDeposit: boolean) => void;
+  setIsTransfer: (isTransfer: boolean) => void;
   vault: any;
 };
 
 const VaultDetailContainer = ({
   vault,
-  setIsSend,
+  setIsWithdraw,
+  setIsDeposit,
+  setIsTransfer,
 }: VaultDetailContainerProps) => {
   return (
     <VStack className={styles.VaultDetailContainer}>
       <HStack className={styles.detailContainerTitleBox}>
         <Text className={styles.detailContainerTitle}>{vault.name}</Text>
         <HStack className={styles.VaultDetailbuttonContainer}>
-          <Button className={styles.NFTdetailButton}>
+          <Button
+            className={styles.NFTdetailButton}
+            onClick={() => setIsWithdraw(true)}
+          >
             <ArrowDownIcon color="white" w="1.5rem" h="1.5rem" />
           </Button>
-          <Button className={styles.NFTdetailButton}>
+          <Button
+            className={styles.NFTdetailButton}
+            onClick={() => setIsDeposit(true)}
+          >
             <ArrowUpIcon color="white" w="1.5rem" h="1.5rem" />
           </Button>
           <Button
             className={styles.NFTdetailButton}
-            onClick={() => setIsSend(true)}
+            onClick={() => setIsTransfer(true)}
           >
             <FaRegPaperPlane color="white" size="1.5rem" />
           </Button>
@@ -296,42 +509,56 @@ const VaultDetailContainer = ({
   );
 };
 
-type SendTokenContainerProps = {
-  nft: any;
+type CreateVaultContainerProps = {
   setIsSuccess: (isSuccess: boolean) => void;
 };
 
-const SendNFTContainer = ({ nft, setIsSuccess }: SendTokenContainerProps) => {
+const CreateVaultContainer = ({ setIsSuccess }: CreateVaultContainerProps) => {
   return (
-    <VStack className={styles.NFTdetailContainer}>
+    <VStack className={styles.VaultDetailContainer}>
       <Box className={styles.detailContainerTitleBox}>
-        <Text
-          className={styles.detailContainerTitle}
-        >{`Send ${nft.name}`}</Text>
+        <Text className={styles.detailContainerTitle}>Create a New Vault</Text>
       </Box>
       <VStack className={styles.sendNFTContentContainer} gap={3}>
-        <Image
-          src={nft.imageUrl}
-          alt={nft.name}
-          className={styles.NFTdetailImage}
-        ></Image>
         <VStack className={styles.NFTrecipientContainer}>
-          <Text className={styles.NFTrecipientLabel}>Recipient</Text>
+          <Text className={styles.NFTrecipientLabel}>Vault Name</Text>
           <Input
-            placeholder="Enter Address"
+            placeholder="Enter vault name"
             className={styles.NFTaddressInput}
           />
         </VStack>
-        <HStack className={styles.NFTswitchContainer}>
+        <VStack className={styles.NFTrecipientContainer}>
+          <Text className={styles.NFTrecipientLabel}>Vault Description</Text>
+          <Input
+            placeholder="Enter vault description"
+            className={styles.NFTaddressInput}
+          />
+        </VStack>
+        <VStack className={styles.NFTrecipientContainer}>
+          <Text className={styles.NFTrecipientLabel}>Vault Image</Text>
+          <HStack className={styles.vaultImageUploadContainer}>
+            <Text className={styles.vaultImageUpload}>
+              Upload image with square dimensions.
+            </Text>
+            <input
+              type="file"
+              id="logoInput"
+              accept="image/png, image/jpg"
+              onChange={() => {}}
+              className={styles.uploadButton}
+            />
+          </HStack>
+        </VStack>
+        <HStack className={styles.vaultSwitchContainer}>
           <Switch
             defaultChecked
             colorScheme="purple"
             onChange={() => {}}
             className={styles.forceSwitch}
           />
-          <Text className={styles.NFTswitchText}>
-            I would like to send my NFT to this address, even if it does not
-            support the LSP1-UniversalReceiver standard. Learn more.
+          <Text className={styles.vaultSwitchText}>
+            I would like to deploy and set a Universal Receiver Delegate for my
+            vault. Learn more.
           </Text>
         </HStack>
         <HStack className={styles.buttonContainer}>
@@ -340,7 +567,7 @@ const SendNFTContainer = ({ nft, setIsSuccess }: SendTokenContainerProps) => {
             className={styles.sendButton}
             onClick={() => setIsSuccess(true)}
           >
-            Send
+            Create
           </Button>
         </HStack>
       </VStack>

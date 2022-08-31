@@ -125,6 +125,10 @@
   opacity: 1;
 }
 
+.selectedContainer {
+  opacity: 1;
+}
+
 .sidebarTabTitle {
   font-family: "Montserrat";
   font-style: normal;
@@ -566,7 +570,7 @@
 }
 
 .VaultDetailContainer {
-  width: 611px;
+  width: 643px;
   height: 587px;
 
   background: rgba(255, 255, 255, 0.05);
@@ -683,6 +687,110 @@
   padding: 0.5rem 0;
 }
 
+.vaultImageUploadContainer {
+  justify-content: center;
+  align-items: center;
+}
+
+.vaultImageUpload {
+  width: 310px !important;
+  height: 54px !important;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px !important;
+  line-height: 24px;
+
+  padding: 1rem !important;
+
+  background: #0d0d0d;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.uploadButton {
+  color: transparent !important;
+  width: 150px;
+  height: 54px;
+}
+
+.uploadButton::file-selector-button {
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+
+  background: transparent !important;
+
+  padding: 0.8rem 1rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 7px;
+  color: white;
+}
+
+.vaultSwitchContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 1rem;
+}
+
+.vaultSwitchText {
+  width: 80%;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 17px;
+}
+
+.selectTokenContainer {
+  display: flex;
+  align-items: flex-start !important;
+  padding-top: 0.5rem;
+  padding-bottom: 2rem;
+}
+
+.depositTokenContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+}
+
+.vaultTransferText {
+  width: 90%;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+
+  padding-bottom: 1rem;
+}
+
+.vaultTransferDetailImage {
+  width: 230px;
+  height: 230px;
+
+  border-radius: 10px;
+}
+
+.vaultRecipientContainer {
+  display: flex;
+  align-items: flex-start !important;
+}
+
 /* DETAIL CONTAINER */
 
 .detailContainer {
@@ -696,7 +804,7 @@
 }
 
 .NFTdetailContainer {
-  width: 552px;
+  width: 549px;
   height: 587px;
 
   background: rgba(255, 255, 255, 0.05);

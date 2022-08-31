@@ -55,7 +55,7 @@ const CryptoContainer = () => {
         </VStack>
       </VStack>
       {isSuccess ? (
-        <SuccessContainer isNFT={false} label={`1 ${selectedToken.name}`} />
+        <SuccessContainer type="crypto" label={`1 ${selectedToken.name}`} />
       ) : !selectedToken ? (
         <OverviewCryptoContainer data={dummyData} />
       ) : (

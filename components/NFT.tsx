@@ -65,7 +65,7 @@ const NFTContainer = () => {
         </VStack>
       </VStack>
       {isSuccess ? (
-        <SuccessContainer isNFT label={selectedNFT.name} />
+        <SuccessContainer type="NFT" label={selectedNFT.name} />
       ) : !selectedNFT ? (
         <OverviewNFTContainer data={dummyData} />
       ) : !isSend ? (
