@@ -1,53 +1,72 @@
 import styles from "../styles/Main.module.css";
-import { VStack, HStack, Box, Text, Button, Image } from "@chakra-ui/react";
+import {
+  VStack,
+  HStack,
+  Box,
+  Text,
+  Button,
+  Image,
+  Input,
+  Switch,
+} from "@chakra-ui/react";
 import { CopyIcon } from "@chakra-ui/icons";
+import { ArrowUpDownIcon } from "@chakra-ui/icons";
 import { FaGithub } from "react-icons/fa";
 import PieChart from "@components/PieChart";
+import { useState } from "react";
 
 const dummyData = [
   {
+    id: 1,
     name: "Lukso",
     balance: "0.00",
     symbol: "LYX",
     imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
   },
   {
+    id: 2,
+    name: "Bitcoin",
+    balance: "0.00",
+    symbol: "LYX",
+    imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
+  },
+  {
+    id: 3,
+    name: "Ethereum",
+    balance: "0.00",
+    symbol: "LYX",
+    imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
+  },
+  {
+    id: 4,
+    name: "Dogecoin",
+    balance: "0.00",
+    symbol: "LYX",
+    imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
+  },
+  {
+    id: 5,
     name: "Lukso",
     balance: "0.00",
     symbol: "LYX",
     imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
   },
   {
+    id: 6,
     name: "Lukso",
     balance: "0.00",
     symbol: "LYX",
     imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
   },
   {
+    id: 7,
     name: "Lukso",
     balance: "0.00",
     symbol: "LYX",
     imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
   },
   {
-    name: "Lukso",
-    balance: "0.00",
-    symbol: "LYX",
-    imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
-  },
-  {
-    name: "Lukso",
-    balance: "0.00",
-    symbol: "LYX",
-    imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
-  },
-  {
-    name: "Lukso",
-    balance: "0.00",
-    symbol: "LYX",
-    imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/5625.png",
-  },
-  {
+    id: 8,
     name: "Lukso",
     balance: "0.00",
     symbol: "LYX",
@@ -56,6 +75,8 @@ const dummyData = [
 ];
 
 const Main = () => {
+  const [selectedToken, setSelectedToken] = useState<any>(null);
+
   return (
     <div className={styles.container}>
       <HStack className={styles.contentContainer} gap={2}>
@@ -152,53 +173,120 @@ const Main = () => {
                 <Text className={styles.tokenContainerTitle}>Tokens</Text>
               </Box>
               <VStack className={styles.tokenListCellContainer}>
-                {dummyData.map(({ name, balance, symbol, imageUrl }, idx) => (
-                  <HStack key={idx} className={styles.tokenListCell}>
+                {dummyData.map((token, idx) => (
+                  <HStack
+                    key={idx}
+                    className={`${styles.tokenListCell} ${
+                      selectedToken && selectedToken.id === token.id
+                        ? styles.selectedCell
+                        : ""
+                    }`}
+                    onClick={() => setSelectedToken(token)}
+                  >
                     <HStack className={styles.tokenListCellLeftSection}>
                       <Image
-                        src={imageUrl}
-                        alt={name}
+                        src={token.imageUrl}
+                        alt={token.name}
                         className={styles.tokenImage}
                       />
-                      <Text className={styles.tokenName}>{name}</Text>
+                      <Text className={styles.tokenName}>{token.name}</Text>
                     </HStack>
                     <VStack className={styles.tokenListCellRightSection}>
-                      <Text className={styles.tokenFiatBalance}>{balance}</Text>
+                      <Text className={styles.tokenFiatBalance}>
+                        {token.balance}
+                      </Text>
                       <Text
                         className={styles.tokenCryptoBalance}
-                      >{`${balance}${symbol}`}</Text>
+                      >{`${token.balance}${token.symbol}`}</Text>
                     </VStack>
                   </HStack>
                 ))}
               </VStack>
             </VStack>
-            <VStack className={styles.detailContainer}>
-              <Box className={styles.detailContainerTitleBox}>
-                <Text className={styles.detailContainerTitle}>Overview</Text>
-              </Box>
-              <PieChart
-                data={[
-                  { title: "One", value: 10, color: "#E38627" },
-                  { title: "Two", value: 15, color: "#C13C37" },
-                  { title: "Three", value: 20, color: "#6A2135" },
-                ]}
-              />
-              <VStack className={styles.scoreListContainer}>
-                {dummyData.map(({ name, balance }, idx) => (
-                  <HStack key={idx} className={styles.scoreContainer}>
-                    <Text className={styles.scoreLabel}>{name}</Text>
-                    <Box className={`${styles.scoreBarContainer}`}>
-                      <Box className={`${styles.scoreBar}`}></Box>
-                    </Box>
-                    <Text className={styles.scoreLabel}>8.6</Text>
-                  </HStack>
-                ))}
-              </VStack>
-            </VStack>
+            {!selectedToken ? (
+              <OverviewContainer />
+            ) : (
+              <SendTokenContainer tokenName={selectedToken.name} />
+            )}
           </HStack>
         </VStack>
       </HStack>
     </div>
+  );
+};
+
+const OverviewContainer = () => {
+  return (
+    <VStack className={styles.detailContainer}>
+      <Box className={styles.detailContainerTitleBox}>
+        <Text className={styles.detailContainerTitle}>Overview</Text>
+      </Box>
+      <PieChart
+        data={[
+          { title: "One", value: 10, color: "#E38627" },
+          { title: "Two", value: 15, color: "#C13C37" },
+          { title: "Three", value: 20, color: "#6A2135" },
+        ]}
+      />
+      <VStack className={styles.scoreListContainer}>
+        {dummyData.map(({ name, balance }, idx) => (
+          <HStack key={idx} className={styles.scoreContainer}>
+            <Text className={styles.scoreLabel}>{name}</Text>
+            <Box className={`${styles.scoreBarContainer}`}>
+              <Box className={`${styles.scoreBar}`}></Box>
+            </Box>
+            <Text className={styles.scoreLabel}>8.6</Text>
+          </HStack>
+        ))}
+      </VStack>
+    </VStack>
+  );
+};
+
+type SendTokenContainerProps = {
+  tokenName: string;
+};
+
+const SendTokenContainer = ({ tokenName }: SendTokenContainerProps) => {
+  return (
+    <VStack className={styles.detailContainer}>
+      <Box className={styles.detailContainerTitleBox}>
+        <Text
+          className={styles.detailContainerTitle}
+        >{`Send ${tokenName}`}</Text>
+      </Box>
+      <VStack className={styles.sendTokenContentContainer} gap={7}>
+        <HStack className={styles.sendTokenInputContainer}>
+          <Button className={styles.sendTokenMaxButton}>
+            <Text>MAX</Text>
+          </Button>
+          <Input placeholder="$0" className={styles.amountInput} />
+          <Button className={styles.sendTokenMaxButton}>
+            <ArrowUpDownIcon color="white" w="20px" h="20px" />
+          </Button>
+        </HStack>
+        <VStack className={styles.recipientContainer}>
+          <Text className={styles.recipientLabel}>Recipient</Text>
+          <Input placeholder="Enter Address" className={styles.addressInput} />
+        </VStack>
+        <HStack className={styles.switchContainer}>
+          <Switch
+            defaultChecked
+            colorScheme="purple"
+            onChange={() => {}}
+            className={styles.forceSwitch}
+          />
+          <Text className={styles.switchText}>
+            I would like to send my tokens to this address, even if it does not
+            support the LSP1-UniversalReceiver standard. Learn more
+          </Text>
+        </HStack>
+        <HStack className={styles.buttonContainer}>
+          <Button className={styles.cancelButton}>Cancel</Button>
+          <Button className={styles.sendButton}>Send</Button>
+        </HStack>
+      </VStack>
+    </VStack>
   );
 };
 

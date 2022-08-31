@@ -273,7 +273,6 @@
 .tokenListCellContainer {
   width: 100%;
   overflow-y: scroll;
-  padding: 0 0.5rem;
 }
 
 .tokenListCell {
@@ -281,8 +280,14 @@
   display: flex;
   justify-content: space-between !important;
   color: rgba(255, 255, 255, 0.6);
-  padding: 0.5rem;
-  /* background: rgba(255, 255, 255, 0.05); */
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: 0.1s ease-in-out;
+  border-radius: 5px;
+}
+
+.selectedCell {
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .tokenName {
@@ -386,4 +391,191 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
+}
+
+.sendTokenContentContainer {
+  padding: 2rem;
+  width: 100%;
+  color: white;
+  justify-content: center;
+  align-items: center;
+}
+
+.sendTokenInputContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 0.5rem;
+}
+
+.sendTokenMaxButton {
+  width: 70px !important;
+  height: 70px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+
+  background: #1f1f1f !important;
+  border-radius: 50% !important;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+
+  color: white;
+}
+
+.amountInput {
+  width: 50% !important;
+  padding: 0.5rem;
+  height: 100px !important;
+  text-align: center !important;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 96px !important;
+  line-height: 117px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none !important;
+  outline: none !important;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.amountInput:focus {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.amountInput:focus-visible {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.recipientLabel {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #ffffff;
+}
+
+.addressInput {
+  width: 544px !important;
+  height: 76px !important;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px !important;
+  line-height: 29px;
+
+  padding: 1rem !important;
+
+  background: #0d0d0d;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.recipientContainer {
+  display: flex;
+  align-items: flex-start !important;
+  padding-top: 0.5rem;
+}
+
+.switchContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0.5rem;
+}
+
+.forceSwitch {
+}
+
+.switchText {
+  width: 80%;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.cancelButton {
+  width: 220px !important;
+  height: 68px !important;
+
+  background: #0d0d0d;
+  border: 1px solid #363636;
+  border-radius: 20px !important;
+
+  background: rgba(0, 0, 0, 0.01) !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.1em;
+
+  color: #ffffff;
+
+  transition: 0.3s ease-in-out;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500 !important;
+  font-size: 20px !important;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+}
+
+.sendButton {
+  width: 220px !important;
+  height: 68px !important;
+
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid #363636;
+  border-radius: 20px !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.1em;
+
+  color: #ffffff;
+
+  transition: 0.3s ease-in-out;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500 !important;
+  font-size: 20px !important;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+}
+
+.cancelButton:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.sendButton:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+
+.buttonContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
