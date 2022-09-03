@@ -18,7 +18,7 @@ const ComingSoonContainer = ({ title }: ComingSoonContainerProps) => {
         </Text>
         <Link href="https://twitter.com/iamminci" isExternal>
           <Text className={styles.comingSoonText}>
-            If you'd like to help contribute, please reach out at @iamminci
+            If youd like to help contribute, please reach out at @iamminci
           </Text>
         </Link>
         <Box h="4rem"></Box>

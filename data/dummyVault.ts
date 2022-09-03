@@ -184,15 +184,15 @@ export const dummyData = [
     permissions: [
       {
         address: "0x0000000000000000000000000000000000000000",
-        access: "All permissions",
+        access: "CALL, SET DATA",
       },
       {
         address: "0x0000000000000000000000000000000000000000",
-        access: "Set Data",
+        access: "CALL, SET DATA",
       },
       {
         address: "0x0000000000000000000000000000000000000000",
-        access: "Call + Transfer Value",
+        access: "SET DATA",
       },
     ],
   },
