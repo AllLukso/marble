@@ -1,15 +1,22 @@
 import styles from "../styles/Main.module.css";
 import { VStack, Box, Text } from "@chakra-ui/react";
 import SuccessLottie from "@components/SuccessLottie";
+import { PageStateType } from "@components/Vault";
 
 type SuccessContainerProps = {
   type: "crypto" | "nft" | "vault";
   label: string;
+  pageState?: PageStateType;
 };
 
-const SuccessContainer = ({ type, label }: SuccessContainerProps) => {
+const SuccessContainer = ({
+  type,
+  label,
+  pageState,
+}: SuccessContainerProps) => {
   let containerStyle = styles.detailContainer;
-  let title = "Successfully Sent!";
+  let subtitleContainerStyle = styles.sentContainerSubtitle;
+  let title = "Successfully sent!";
 
   switch (type) {
     case "crypto":
@@ -17,10 +24,28 @@ const SuccessContainer = ({ type, label }: SuccessContainerProps) => {
       break;
     case "nft":
       containerStyle = styles.NFTdetailContainer;
+      subtitleContainerStyle = styles.NFTSubtitle;
       break;
     case "vault":
-      containerStyle = styles.VaultDetailContainer;
-      title = "Successfully Created!";
+      containerStyle = styles.VaultSuccessDetailContainer;
+      break;
+  }
+
+  switch (pageState) {
+    case PageStateType.Deposit:
+      title = "Successfully deposited!";
+      break;
+    case PageStateType.Withdraw:
+      title = "Successfully withdrawn!";
+      break;
+    case PageStateType.Detail:
+      title = "Successfully claimed!";
+      break;
+    case PageStateType.Create:
+      title = "Successfully created!";
+      break;
+    case PageStateType.Transfer:
+      title = "Successfully transferred!";
       break;
   }
 
@@ -35,7 +60,7 @@ const SuccessContainer = ({ type, label }: SuccessContainerProps) => {
         </VStack>
         <VStack className={styles.sentContainerTextContainer}>
           <Text className={styles.sentContainerTitle}>{title}</Text>
-          <Text className={styles.sentContainerSubtitle}>{label}</Text>
+          <Text className={subtitleContainerStyle}>{label}</Text>
           <Text className={styles.sentContainerFooter}>
             It may take up to ~2 min for the transaction to complete
           </Text>

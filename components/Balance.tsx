@@ -1,28 +1,10 @@
 import styles from "../styles/Main.module.css";
-import {
-  VStack,
-  HStack,
-  Box,
-  Text,
-  Button,
-  Image,
-  Input,
-  Switch,
-  SimpleGrid,
-} from "@chakra-ui/react";
-import { CopyIcon, RepeatIcon } from "@chakra-ui/icons";
-import {
-  FaGithub,
-  FaRegPaperPlane,
-  FaBinoculars,
-  FaExchangeAlt,
-  FaFaucet,
-  FaMoneyBill,
-  FaMoneyCheckAlt,
-} from "react-icons/fa";
+import { VStack, HStack, Text, Button } from "@chakra-ui/react";
+import { CopyIcon } from "@chakra-ui/icons";
+import { FaExchangeAlt, FaFaucet, FaMoneyCheckAlt } from "react-icons/fa";
 import { abridgeAddress } from "@utils/helpers";
 import { useState } from "react";
-import { useBalance } from "wagmi";
+import { useLuksoWeb3 } from "./LuksoWeb3Provider";
 
 type BalanceContainerProps = {
   address?: string;
@@ -30,13 +12,7 @@ type BalanceContainerProps = {
 };
 
 const BalanceContainer = ({ address, userProfile }: BalanceContainerProps) => {
-  const {
-    data: balance,
-    isError,
-    isLoading,
-  } = useBalance({
-    addressOrName: address,
-  });
+  const { balance } = useLuksoWeb3();
 
   const [copied, setCopied] = useState(false);
   if (!address || !userProfile) return null;
@@ -47,7 +23,7 @@ const BalanceContainer = ({ address, userProfile }: BalanceContainerProps) => {
     setCopied(true);
     setTimeout(() => {
       setCopied(false);
-    }, 2000);
+    }, 1000);
   }
 
   return (
@@ -55,7 +31,7 @@ const BalanceContainer = ({ address, userProfile }: BalanceContainerProps) => {
       <VStack className={styles.balanceContainerLeftSection}>
         <Text className={styles.balanceContainerTitle}>Your LYX Balance</Text>
         <Text className={styles.balanceContainerBalance}>
-          {balance ? balance.formatted : "0"} LYX
+          {balance ? balance : "0"} LYX
         </Text>
       </VStack>
       <VStack className={styles.balanceContainerRightSection} gap={1}>
@@ -96,10 +72,6 @@ const BalanceContainer = ({ address, userProfile }: BalanceContainerProps) => {
                 <Text className={styles.balanceContainerButtonText}>Buy</Text>
               </Button>
             </a>
-            <Button className={styles.balanceContainerButton}>
-              <FaRegPaperPlane color="white" size="1rem" />
-              <Text className={styles.balanceContainerButtonText}>Send</Text>
-            </Button>
             <a
               href="https://coinmarketcap.com/dexscan/ethereum/0xd583d0824ed78767e0e35b9bf7a636c81c665aa8"
               target="_blank"

@@ -1,108 +1,15 @@
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import type { NextPage } from "next";
 import Head from "next/head";
-import {
-  useAccount,
-  useConnect,
-  useContractWrite,
-  usePrepareContractWrite,
-  useProvider,
-  useSigner,
-} from "wagmi";
-import useIssuedTokens from "../hooks/useIssuedTokens";
+
 import styles from "../styles/Home.module.css";
-import { Box, Image, VStack } from "@chakra-ui/react";
-import useOwnedTokenAddresses from "../hooks/useOwnedTokenAddresses";
-import useOwnedTokens from "../hooks/useOwnedTokens";
-import LSP7Mintable from "@lukso/lsp-smart-contracts/artifacts/LSP7Mintable.json";
-import { Text, Button } from "@chakra-ui/react";
-import { ethers } from "ethers";
-import { InjectedConnector } from "wagmi/connectors/injected";
+import { Box } from "@chakra-ui/react";
 import Landing from "@components/Landing";
 import Main from "@components/Main";
+import withTransition from "@components/withTransition";
+import { useLuksoWeb3 } from "@components/LuksoWeb3Provider";
 
 const Home: NextPage = () => {
-  const { address } = useAccount();
-  const { data: signer, isError } = useSigner();
-
-  const { tokens: issuedTokens, isLoading } = useIssuedTokens(address);
-  // const { tokens: issuedTokens, isLoading } = useOwnedTokens(address);
-  const { tokenAddresses } = useOwnedTokenAddresses(address);
-
-  console.log("tokens: ", issuedTokens);
-  console.log("isLoading: ", isLoading);
-  console.log("tokenAddresses: ", tokenAddresses);
-
-  // 1.8M of 5M gas used
-
-  async function deployContract() {
-    if (!signer) return;
-
-    const contractFactory = new ethers.ContractFactory(
-      LSP7Mintable.abi,
-      LSP7Mintable.bytecode,
-      signer
-    );
-
-    // const contract = await contractFactory.deploy(100);
-    const myToken = await contractFactory.deploy(
-      "My LSP7 Token", // token name
-      "LSP7", // token symbol
-      "0x0187fdcd74aE1C258513F41062ae508EBD4BfbB9", // new owner, who will mint later
-      false // isNonDivisible = TRUE, means NOT divisible, decimals = 0)
-    );
-
-    console.log("contrat deployed");
-    console.log("contract: ", myToken);
-    console.log("contract address: ", myToken.address);
-    // 0xeAab1C856cEd4631804A1e18c4Ba9B8B6Aa264Ea
-  }
-
-  // const { config } = usePrepareContractWrite({
-  //   addressOrName: "0x8Dec478C52c63552708559340B6Cc4456a454d49",
-  //   contractInterface: GiftlyProtocol.abi,
-  //   functionName: "gift",
-  //   args: [demoRecipient, demoTokenURI, ethers.utils.parseEther(".5")],
-  //   overrides: {
-  //     value: ethers.utils.parseEther(".51"),
-  //   },
-  // });
-
-  // const {
-  //   data: txnData,
-  //   isLoading,
-  //   isSuccess,
-  //   write: mintLSP7,
-  // } = useContractWrite(config);
-
-  {
-    /* <ConnectButton /> */
-  }
-  {
-    /* {isLoading ? (
-          <div>Loading...</div>
-        ) : (
-          issuedTokens.map(
-            ({
-              name,
-              symbol,
-              iconUrl,
-              metadata,
-              totalSupply,
-              creationType,
-            }) => {
-              return (
-                <>
-                  <div>{name}</div>
-                  <div>{symbol}</div>
-                  <Image src={iconUrl} alt="image" />
-                </>
-              );
-            }
-          )
-        )}
-        <button onClick={deployContract}>Deploy Token</button> */
-  }
+  const { address } = useLuksoWeb3();
 
   return (
     <div className={styles.container}>
@@ -114,11 +21,16 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         {!address ? <Landing /> : <Main />}
-        <Box className={styles.marbleOne}></Box>
-        <Box className={styles.marbleTwo}></Box>
+        {!address && (
+          <>
+            {/* i like colorful floating marbles, do you? */}
+            <Box className={styles.marbleOne}></Box>
+            <Box className={styles.marbleTwo}></Box>
+          </>
+        )}
       </main>
     </div>
   );
 };
 
-export default Home;
+export default withTransition(Home);

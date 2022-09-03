@@ -32,4 +32,10 @@
   letter-spacing: -0.1em;
 
   color: #ffffff;
+
+  transition: 2s ease-in-out;
+}
+
+.addressButton:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
 }

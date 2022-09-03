@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-
 import ERC725js from "@erc725/erc725.js";
-
 import LSP5ReceivedAssetsSchema from "@erc725/erc725.js/schemas/LSP5ReceivedAssets.json";
 import { ERC725JSONSchema } from "@erc725/erc725.js//build/main/src/types/ERC725JSONSchema";
+import { useLuksoWeb3 } from "@components/LuksoWeb3Provider";
 
-export default function useIssuedTokens(address: string) {
-  const [tokenAddresses, setTokenAddresses] = useState<any>([]); // TODO figure out type here
+// hook to get token addresses owned by a given address
+// inspo for a lot of this: https://github.com/lukso-network/example-dapp-lsps
+export default function useOwnedTokens(address: string) {
+  const [tokenAddresses, setTokenAddresses] = useState<any>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { web3 } = useLuksoWeb3();
 
   useEffect(() => {
     async function fetchIssuedTokenAddresses() {
@@ -16,7 +18,7 @@ export default function useIssuedTokens(address: string) {
       const erc725LSP5IssuedAssets = new ERC725js(
         LSP5ReceivedAssetsSchema as ERC725JSONSchema[],
         address,
-        window.web3.currentProvider
+        web3.currentProvider
       );
 
       try {

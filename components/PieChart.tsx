@@ -6,7 +6,6 @@ type Props = {
 };
 
 function StyledPieChart(props: Props) {
-  const [selected, setSelected] = useState<number | undefined>(0);
   const [hovered, setHovered] = useState<number | undefined>(undefined);
 
   const data = props.data.map((entry, i) => {
@@ -26,16 +25,14 @@ function StyledPieChart(props: Props) {
       style={{
         fontFamily:
           '"Nunito Sans", -apple-system, Helvetica, Arial, sans-serif',
-        fontSize: "6px",
+        fontSize: "6px !important",
       }}
       data={data}
       radius={PieChart.defaultProps.radius - 5}
       lineWidth={lineWidth}
       segmentsStyle={{ transition: "stroke .3s", cursor: "pointer" }}
       animate
-      label={({ dataEntry }) =>
-        `${dataEntry.label} (${Math.round(dataEntry.percentage)}%)`
-      }
+      label={({ dataEntry }) => dataEntry.label}
       labelPosition={100 - lineWidth / 2}
       labelStyle={{
         fill: "#fff",

@@ -12,7 +12,7 @@ const SuccessLottie = () => {
   };
 
   return (
-    <Lottie options={defaultOptions} speed={0.5} height={400} width={400} />
+    <Lottie options={defaultOptions} speed={0.3} height={400} width={400} />
   );
 };
 

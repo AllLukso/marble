@@ -1,16 +1,6 @@
 import styles from "../styles/Main.module.css";
-import {
-  VStack,
-  HStack,
-  Box,
-  Text,
-  Button,
-  Image,
-  Input,
-  Switch,
-  SimpleGrid,
-} from "@chakra-ui/react";
-import { FaGithub, FaRegPaperPlane, FaBinoculars } from "react-icons/fa";
+import { VStack, HStack, Box, Text, Image } from "@chakra-ui/react";
+import { FaCoins, FaImages, FaLock, FaSeedling, FaUsers } from "react-icons/fa";
 import Link from "next/link";
 import { getIPFSUrl, getUserHash } from "@utils/helpers";
 
@@ -29,8 +19,12 @@ const SidebarContainer = ({
 
   const { name, profileImage, backgroundImage } = userProfile;
 
-  const coverImageUrl = getIPFSUrl(backgroundImage[0].url);
-  const profileImageUrl = getIPFSUrl(profileImage[0].url);
+  const coverImageUrl = backgroundImage[0]
+    ? getIPFSUrl(backgroundImage[0].url)
+    : "";
+  const profileImageUrl = profileImage[0]
+    ? getIPFSUrl(profileImage[0].url)
+    : "";
 
   return (
     <VStack className={styles.sidebarContainer}>
@@ -38,13 +32,13 @@ const SidebarContainer = ({
         <Box className={styles.profileContainer}>
           <Box className={styles.coverImageOverlay}></Box>
           <Image
-            src={coverImageUrl}
+            src={coverImageUrl ?? "/cover.png"}
             alt="cover image"
             className={styles.coverImage}
           ></Image>
           <VStack className={styles.profileContentContainer}>
             <Image
-              src={profileImageUrl}
+              src={profileImageUrl ?? "/profile.png"}
               alt="cover image"
               className={styles.profileImage}
             ></Image>
@@ -61,10 +55,12 @@ const SidebarContainer = ({
         <Link href="/#crypto">
           <HStack
             className={`${styles.sidebarTabContainer} ${
-              selected === "/#crypto" ? styles.selectedContainer : ""
+              selected === "/#crypto" || selected === "/"
+                ? styles.selectedContainer
+                : ""
             }`}
           >
-            <FaGithub color="white" />
+            <FaCoins color="white" />
             <Text className={styles.sidebarTabTitle}>Crypto</Text>
           </HStack>
         </Link>
@@ -74,7 +70,7 @@ const SidebarContainer = ({
               selected === "/#nft" ? styles.selectedContainer : ""
             }`}
           >
-            <FaGithub color="white" />
+            <FaImages color="white" />
             <Text className={styles.sidebarTabTitle}>NFTs</Text>
           </HStack>
         </Link>
@@ -84,7 +80,7 @@ const SidebarContainer = ({
               selected === "/#vault" ? styles.selectedContainer : ""
             }`}
           >
-            <FaGithub color="white" />
+            <FaLock color="white" />
             <Text className={styles.sidebarTabTitle}>Vaults</Text>
           </HStack>
         </Link>
@@ -94,7 +90,7 @@ const SidebarContainer = ({
               selected === "/#staking" ? styles.selectedContainer : ""
             }`}
           >
-            <FaGithub color="white" />
+            <FaSeedling color="white" />
             <Text className={styles.sidebarTabTitle}>Staking</Text>
           </HStack>
         </Link>
@@ -104,11 +100,12 @@ const SidebarContainer = ({
               selected === "/#governance" ? styles.selectedContainer : ""
             }`}
           >
-            <FaGithub color="white" />
+            <FaUsers color="white" />
             <Text className={styles.sidebarTabTitle}>Governance</Text>
           </HStack>
         </Link>
-        <Link href="/#settings">
+        {/* TODO: add settings to customize experience */}
+        {/* <Link href="/#settings">
           <HStack
             className={`${styles.sidebarTabContainer} ${
               selected === "/#settings" ? styles.selectedContainer : ""
@@ -117,7 +114,7 @@ const SidebarContainer = ({
             <FaGithub color="white" />
             <Text className={styles.sidebarTabTitle}>Settings</Text>
           </HStack>
-        </Link>
+        </Link> */}
       </VStack>
       <Text className={styles.sidebarFooter}>Made with ❤️ by @iamminci</Text>
     </VStack>

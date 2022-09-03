@@ -1,3 +1,15 @@
+// TOKEN METADATA TEMPLATE
+// {
+//   name: "Bitcoin",
+//   symbol: "LBTC",
+//   iconUrl: "btc.png",
+//   metadata: {},
+//   totalSupply: 10000000,
+//   balance: 1,
+//   tokenType: "LSP7",
+//   tokenContract: {},
+// }
+
 export const dummyData = [
   {
     id: 1,

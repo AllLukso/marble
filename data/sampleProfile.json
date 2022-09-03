@@ -1,0 +1,16 @@
+{
+  "LSP3Profile": {
+    "name": "Vault Name #1",
+    "description": "hi i'm the best vault out there",
+    "links": [],
+    "tags": [],
+    "profileImage": [
+      {
+        "width": 500,
+        "height": 500,
+        "url": "https://bafkreigmxaglcivuzullazjnwvmtbzo3ioqeqp54azgw2lr66oy6rpvowa.ipfs.nftstorage.link/"
+      }
+    ],
+    "backgroundImage": []
+  }
+}

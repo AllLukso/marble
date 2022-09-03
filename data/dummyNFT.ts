@@ -1,3 +1,26 @@
+// TEMPLATE FOR NFT METADATA
+// {
+//   name: "Squiggles",
+//   symbol: "SQUIG",
+//   iconUrl: "n1.png",
+//   metadata: {},
+//   description: "",
+//   totalSupply: 1,
+//   balance: 1,
+//   tokenType: "LSP8",
+//   tokenId: web3!.utils.stringToHex(
+//     Math.floor(Math.random() * 500).toString()
+//   ),
+//   tokenContract: {},
+// }
+
+// TEMPLATE FOR COLLECTION METADATA
+// {
+//   collectionName: "World of Women",
+//   collectionSymbol: "WOW",
+//   balance: 1,
+// }
+
 export const dummyData = [
   {
     id: 1,

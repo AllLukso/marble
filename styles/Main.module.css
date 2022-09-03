@@ -1,3 +1,4 @@
+/* please don't mind the shitty CSS on this file, truly apologize */
 .container {
   box-sizing: border-box;
 
@@ -114,7 +115,7 @@
 
 .sidebarTabListContainer {
   padding-top: 1rem;
-  padding-bottom: 13rem;
+  padding-bottom: 16.5rem;
 }
 
 .sidebarTabContainer {
@@ -220,6 +221,10 @@
 }
 
 .copyAddressContainer:hover {
+  opacity: 0.8;
+}
+
+.copyAddressContainer:active {
   opacity: 1;
 }
 
@@ -230,8 +235,20 @@
   border-radius: 10px;
   border: rgba(255, 255, 255, 0.3) 1px solid;
   padding: 0.5rem 1rem;
-  left: 1.5rem;
+  left: 2rem;
   bottom: 2rem;
+  transition: 3s ease-in-out;
+}
+
+.copiedVaultPopover {
+  position: absolute;
+  color: white;
+  background: rgba(0, 0, 0, 0.95);
+  border-radius: 10px;
+  border: rgba(255, 255, 255, 0.3) 1px solid;
+  padding: 0.5rem 1rem;
+  left: 12rem;
+  top: 3rem;
   transition: 3s ease-in-out;
 }
 
@@ -276,6 +293,23 @@
   background: rgba(35, 35, 35, 0.5) !important;
 }
 
+.symbolLabel {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.toastText {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+}
+
 /* TOKEN CONTAINER */
 
 .tokenContainer {
@@ -300,6 +334,17 @@
   font-style: normal;
   font-weight: 700;
   font-size: 30px;
+  line-height: 37px;
+  /* identical to box height */
+
+  color: #ffffff;
+}
+
+.vaultContainerTitle {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
   line-height: 37px;
   /* identical to box height */
 
@@ -334,11 +379,7 @@
 }
 
 .tokenListCell:hover {
-  background: rgba(255, 255, 255, 0.03);
-}
-
-.selectedCell {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .tokenName {
@@ -378,6 +419,11 @@
   border-radius: 50%;
   margin-right: 0.5rem;
   border-radius: 50%;
+}
+
+.pieChartContainer {
+  width: 300px;
+  font-size: 5px !important;
 }
 
 /* NFT CONTAINER */
@@ -420,11 +466,7 @@
 }
 
 .NFTListCell:hover {
-  background: rgba(255, 255, 255, 0.03);
-}
-
-.selectedCell {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .NFTName {
@@ -514,14 +556,38 @@
   transition: 0.1s ease-in-out;
   border-radius: 5px;
   padding: 1rem;
+  position: relative;
+}
+
+.vaultColorLabel {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.vaultDetailColorLabel {
+  position: absolute;
+  left: 0;
 }
 
 .VaultListCell:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .selectedCell {
   background: rgba(255, 255, 255, 0.1);
+}
+
+.vaultContentContainer {
+  padding: 1rem;
+  width: 100%;
+  color: white;
+  justify-content: center;
+  align-items: center;
+}
+
+.vaultInnerContentContainer {
+  width: 100%;
 }
 
 .NFTName {
@@ -555,6 +621,7 @@
 .VaultImage {
   width: 200px;
   height: 200px;
+  border-radius: 5px;
 }
 
 .NFTCollectionName {
@@ -601,13 +668,51 @@
   color: white;
   opacity: 0.8;
   transition: 0.2 ease-in-out;
+  position: relative;
 }
 
+.bellNotification {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+  font-family: "Montserrat";
+}
 .VaultButton:hover {
   opacity: 1;
 }
 
 .VaultDetailContainer {
+  width: 643px;
+  height: 587px;
+
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+
+  padding: 1.5rem 1rem;
+
+  overflow-y: scroll;
+}
+
+.VaultSuccessDetailContainer {
+  width: 643px;
+  height: 587px;
+
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+
+  padding: 1.5rem 1rem;
+
+  overflow-y: scroll;
+
+  padding-top: 3rem;
+}
+
+.CreateVaultContainer {
   width: 643px;
   height: 587px;
 
@@ -777,8 +882,8 @@
 .vaultSwitchContainer {
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center !important;
+  align-items: center !important;
   padding-bottom: 1rem;
 }
 
@@ -818,8 +923,8 @@
 }
 
 .vaultTransferDetailImage {
-  width: 230px;
-  height: 230px;
+  width: 210px;
+  height: 210px;
 
   border-radius: 10px;
 }
@@ -941,6 +1046,15 @@
   align-items: center;
 }
 
+.createVaultContainer {
+  padding: 1rem;
+  width: 100%;
+  height: 25rem;
+  color: white;
+  justify-content: center;
+  align-items: center;
+}
+
 .NFTrecipientLabel {
   font-family: "Montserrat";
   font-style: normal;
@@ -995,7 +1109,8 @@
   width: 100%;
   display: flex;
   justify-content: space-between !important;
-  padding: 0 1rem;
+  padding: 0 1rem 0 2rem;
+  position: relative;
 }
 
 .detailContainerTitle {
@@ -1004,9 +1119,27 @@
   font-weight: 700;
   font-size: 30px;
   line-height: 37px;
-  /* identical to box height */
-
   color: #ffffff;
+}
+
+.detailAddressContainerTitle {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 37px;
+  transition: 0.2s ease-in-out;
+  color: #ffffff;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.detailAddressContainerTitle:hover {
+  opacity: 0.8;
+}
+
+.detailAddressContainerTitle:active {
+  opacity: 1;
 }
 
 .scoreListContainer {
@@ -1061,7 +1194,16 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
-  width: 3.5rem;
+  width: 3.8rem;
+}
+
+.NFTscoreTitleLabel {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  width: 4rem;
 }
 
 .scoreLabel {
@@ -1180,7 +1322,8 @@
   padding-top: 0.5rem;
 }
 
-.forceSwitch {
+.vaultSwitch {
+  padding-left: 3rem;
 }
 
 .switchText {
@@ -1260,6 +1403,12 @@
   justify-content: space-between;
 }
 
+.createVaultbuttonContainer {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
 .sentContainer {
   color: white;
   position: relative;
@@ -1294,10 +1443,49 @@
   padding-bottom: 3rem;
 }
 
+.NFTSubtitle {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 59px;
+
+  opacity: 0.6;
+
+  padding-bottom: 3rem;
+}
+
 .sentContainerFooter {
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
+}
+
+.comingSoonContainer {
+  width: 1159px;
+  height: 587px;
+
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+
+  padding: 1.5rem 1rem;
+}
+
+.comingSoonContentContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.comingSoonText {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #ffffff;
 }
