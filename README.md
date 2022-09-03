@@ -5,6 +5,7 @@ Marble is a LUKSO-native wallet built for users with Universal Profiles to manag
 ## Relevant Links
 - Check out the [Live Deployment](https://marble.cool)
 - Check out the [Walkthrough Demo](https://vimeo.com/744970725)
+- Check out the [Figma Designs](https://www.figma.com/file/SjR5N8ATIJaeJzc8Pgjlw4/Marble?node-id=0%3A1)
 ## Context
 For LUKSO to thrive, it needs a world-class wallet; focused on providing the most user-friendly experience to seamlessly onboard the next billion users into the web3 creative economy.
 
